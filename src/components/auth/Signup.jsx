@@ -34,7 +34,7 @@ const Signup = () => {
         dispatch(signUpAction(data, setIsSubmitting))
     }
     return (<>
-        <CardWrapper label="Create an account" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here">
+        <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">

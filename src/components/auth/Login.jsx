@@ -32,7 +32,7 @@ const Login = () => {
         dispatch(logInAction(data, setIsSubmitting))
     }
     return (<>
-        <CardWrapper label="Login to your account" title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here">
+        <CardWrapper label="Welcome back, we missed you." title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
