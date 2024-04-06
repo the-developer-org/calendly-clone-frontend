@@ -10,9 +10,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/Form"
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/ui/Button"
 import CardWrapper from "../common/CardWrapper";
 import { loginSchema } from "@/schema";
 import { logInAction } from "@/store/actions/authActions";

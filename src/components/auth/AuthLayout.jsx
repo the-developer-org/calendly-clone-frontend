@@ -1,16 +1,10 @@
-import PropTypes from 'prop-types'
 import { Menu } from "lucide-react"
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { CalendarCheck } from 'lucide-react'
+import { menus } from '../../assets/data'
 const AuthLayout = ({ children }) => {
     const [state, setState] = useState(false)
-    const menus = [
-        { title: "Home", path: "" },
-        { title: "Blog", path: "" },
-        { title: "About Us", path: "" },
-        { title: "Contact Us", path: "" },
-    ]
     return (
         <section className="w-full h-screen flex flex-col">
             <div className="bg-white w-full border-b md:border-0 shadow-md ">
@@ -51,7 +45,4 @@ const AuthLayout = ({ children }) => {
     )
 }
 
-AuthLayout.propTypes = {
-    children: PropTypes.node
-}
 export default AuthLayout

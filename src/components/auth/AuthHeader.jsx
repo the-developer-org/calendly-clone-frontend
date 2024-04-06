@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 const AuthHeader = ({ label, title }) => {
     return (<>
         <div className="w-full flex flex-col gap-y-4 items-center justify-center">
@@ -7,8 +6,4 @@ const AuthHeader = ({ label, title }) => {
         </div>
     </>)
 }
-AuthHeader.propTypes = {
-    label: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-};
 export default AuthHeader;

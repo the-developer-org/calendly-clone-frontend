@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import { Button } from "@/components/ui/button"
+
+import { Button } from "@/components/ui/Button"
 
 import { Link } from 'react-router-dom'
 const BackButton = ({ label, path }) => {
@@ -10,8 +10,6 @@ const BackButton = ({ label, path }) => {
 
     </>)
 }
-BackButton.propTypes = {
-    label: PropTypes.string,
-    path: PropTypes.string
-}
+
+
 export default BackButton

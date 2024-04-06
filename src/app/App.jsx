@@ -3,7 +3,7 @@ import { useState } from 'react'
 import './App.css'
 import PageLoader from '@/components/common/PageLoader'
 import AuthRoutes from '@/routes/AuthRoutes';
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/Sonner"
 
 import { useSelector } from 'react-redux';
 import UserRoutes from '@/routes/UserRoutes';
@@ -17,8 +17,7 @@ function App() {
     return (
         <>
             {loading && <PageLoader />}
-            {!isLoggedIn && <AuthRoutes />}
-            {isLoggedIn && <UserRoutes />}
+            {isLoggedIn ? <UserRoutes /> : <AuthRoutes />}
             <Toaster />
         </>
     )

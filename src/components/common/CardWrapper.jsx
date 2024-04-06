@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
+
 import {
     Card,
     CardContent,
     CardFooter,
     CardHeader,
-} from "@/components/ui/card"
+} from "@/components/ui/Card"
 import AuthHeader from '../auth/AuthHeader';
 import BackButton from '../auth/BackButton';
 
@@ -29,12 +29,5 @@ const CardWrapper = ({ label, title, backButtonLabel, backButtonPath, children }
 };
 
 
-CardWrapper.propTypes = {
-    label: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    backButtonLabel: PropTypes.string,
-    backButtonPath: PropTypes.string,
-    children: PropTypes.node
-};
 
 export default CardWrapper;
