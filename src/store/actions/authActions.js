@@ -1,4 +1,4 @@
-import { signupUser, loginUser, verifyUser } from '@/api/api';
+import { signupUser, loginUser, verifyUser } from '../../api/api';
 
 import {
   setUserDetails,

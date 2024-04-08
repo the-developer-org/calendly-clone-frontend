@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import './App.css'
-import PageLoader from '@/components/common/PageLoader'
-import AuthRoutes from '@/routes/AuthRoutes';
+import PageLoader from '../components/common/PageLoader'
+import AuthRoutes from '../routes/AuthRoutes';
 import { Toaster } from "@/components/ui/sonner"
 
 import { useSelector } from 'react-redux';
-import UserRoutes from '@/routes/UserRoutes';
+import UserRoutes from '../routes/UserRoutes';
 import { useDispatch } from "react-redux";
 import { verifyUserAction } from "../store/actions/authActions";
 

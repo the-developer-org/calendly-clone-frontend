@@ -12,18 +12,18 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { signupSchema } from "@/schema";
+import { signup } from "../../validations/formValidation";
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import CardWrapper from "../common/CardWrapper";
-import { signUpAction } from "@/store/actions/authActions";
+import { signUpAction } from "../../store/actions/authActions";
 
 
-const Signup = ({ toggle }) => { // Receive toggle handler as prop
+const Signup = ({ toggle }) => {
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
-        resolver: zodResolver(signupSchema),
+        resolver: zodResolver(signup),
         defaultValues: {
             name: "",
             email: "",

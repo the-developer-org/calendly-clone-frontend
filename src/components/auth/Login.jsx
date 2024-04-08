@@ -14,15 +14,15 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import CardWrapper from "../common/CardWrapper";
-import { loginSchema } from "@/schema";
-import { logInAction } from "@/store/actions/authActions";
+import { login } from "../../validations/formValidation";
+import { logInAction } from "../../store/actions/authActions";
 
 
 const Login = ({ toggle }) => {
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
-        resolver: zodResolver(loginSchema),
+        resolver: zodResolver(login),
         defaultValues: {
             email: "",
             password: ""

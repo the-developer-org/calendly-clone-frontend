@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Plus, Menu } from "lucide-react";
 import BrandTitle from "../common/BrandTitle";
 import { Button } from "@/components/ui/button";
-import { mainLinks } from "@/assets/data";
+import { mainLinks } from "../../assets/data";
 import { Link } from "react-router-dom";
 import SidebarButton from "./SidebarButton";
 
@@ -20,7 +20,7 @@ const Sidebar = () => {
             </Link>
 
 
-            <div className="md:mt-2">
+            <div className="md:mt-2 font-poppins">
                 <div className="md:mt-10">
                     <div className="hidden md:flex sm:flex-col gap-4">
                         {mainLinks.map((link, index) => (

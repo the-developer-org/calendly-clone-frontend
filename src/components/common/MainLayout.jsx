@@ -1,6 +1,6 @@
 const MainLayout = ({ children }) => {
     return (
-        <main className="ml-[1rem] mr-[1rem] mt-[1rem] md:mt-[6rem] md:ml-[18rem]">
+        <main className=" mx-[1rem] mt-[1rem] md:mt-[6rem] md:ml-[14rem] lg:ml-[15rem] px-[1rem]">
             {children}
         </main>
     )
