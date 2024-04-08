@@ -1,10 +1,11 @@
-import EventHeader from "@/components/events/EventHeader"
+import EventHeader from "@/components/header/MobileHeader"
 import MainLayout from "../components/common/MainLayout"
 import EventPage from "../components/events/Event"
 import Header from "../components/header/Header"
 import NewEvent from "../components/new_event/NewEvent"
 import Sidebar from "../components/sidebar/Sidebar"
 import { Routes, Route, Navigate } from "react-router-dom"
+import Schedule from "../components/scheduled-events/Schedule"
 
 const UserRoutes = () => {
     return (
@@ -19,8 +20,9 @@ const UserRoutes = () => {
 
             <MainLayout>
                 <Routes>
-                    <Route path="/event_types" element={<EventPage />} />
+                    <Route path="/event_types" element={<EventPage title="My Events" />} />
                     <Route path="/create-event" element={<NewEvent />} />
+                    <Route path="/scheduled_events" element={<Schedule title="Scheduled Events" />} />
                     <Route path="*" element={<Navigate to="/event_types" />} />
                 </Routes>
             </MainLayout>

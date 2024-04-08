@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Settings2 } from 'lucide-react'
-const EventHeader = ({ name }) => {
+const MobileHeader = ({ name }) => {
     return (<>
         <div className=" sm:hidden flex flex-row items-center justify-between h-[4rem]  bg-white z-30 ">
 
@@ -20,4 +20,4 @@ const EventHeader = ({ name }) => {
 
     </>)
 }
-export default EventHeader;
+export default MobileHeader;
