@@ -1,4 +1,4 @@
-import { signupUser, loginUser } from '@/api/api';
+import { signupUser, loginUser, verifyUser } from '@/api/api';
 
 import {
   setUserDetails,
@@ -15,7 +15,9 @@ export const signUpAction = (userData, setBtnLoader) => {
   return async (dispatch) => {
     try {
       setBtnLoader(true);
+      console.log(userData);
       const { data } = await signupUser(userData);
+      console.log(data);
       const userDetails = {
         name: data.name,
         email: data.email,
@@ -67,5 +69,23 @@ export const logOutAction = () => {
   return (dispatch) => {
     dispatch(logOutUser());
     localStorage.removeItem('token');
+  };
+};
+
+export const verifyUserAction = (token, setLoader) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await verifyUser(token);
+      console.log(data);
+      const userDetails = {
+        name: data.name,
+        email: data.email,
+      };
+      dispatch(setUserDetails(userDetails));
+      dispatch(setUserLoggedIn());
+      setLoader(false);
+    } catch (error) {
+      setLoader(false);
+    }
   };
 };

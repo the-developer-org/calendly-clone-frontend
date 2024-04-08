@@ -1,11 +1,12 @@
 
-import { Button } from "@/components/ui/Button"
+import { Button } from "@/components/ui/button"
 
 import { Link } from 'react-router-dom'
-const BackButton = ({ label, path }) => {
+
+const BackButton = ({ label, toggle }) => {
     return (<>
         <Button variant="link" className="font-normal w-full" asChild size="sm">
-            <Link to={path}>{label}</Link>
+            <p onClick={() => toggle()}>{label}</p>
         </Button>
 
     </>)

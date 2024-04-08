@@ -9,9 +9,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/Form"
-import { Input } from "@/components/ui/Input"
-import { Button } from "@/components/ui/Button"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import { signupSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -19,13 +19,13 @@ import CardWrapper from "../common/CardWrapper";
 import { signUpAction } from "@/store/actions/authActions";
 
 
-const Signup = () => {
+const Signup = ({ toggle }) => { // Receive toggle handler as prop
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
         resolver: zodResolver(signupSchema),
         defaultValues: {
-            username: "",
+            name: "",
             email: "",
             password: ""
         }
@@ -34,13 +34,13 @@ const Signup = () => {
         dispatch(signUpAction(data, setIsSubmitting))
     }
     return (<>
-        <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here">
+        <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here" toggle={toggle}>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="name"
                             render={({ field }) => {
                                 return (
                                     <FormItem>

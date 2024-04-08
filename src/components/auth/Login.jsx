@@ -10,15 +10,15 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/Form"
-import { Input } from "@/components/ui/Input"
-import { Button } from "@/components/ui/Button"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import CardWrapper from "../common/CardWrapper";
 import { loginSchema } from "@/schema";
 import { logInAction } from "@/store/actions/authActions";
 
 
-const Login = () => {
+const Login = ({ toggle }) => {
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
@@ -32,7 +32,7 @@ const Login = () => {
         dispatch(logInAction(data, setIsSubmitting))
     }
     return (<>
-        <CardWrapper label="Welcome back, we missed you." title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here">
+        <CardWrapper label="Welcome back, we missed you." title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here" toggle={toggle}>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
