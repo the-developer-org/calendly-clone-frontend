@@ -5,31 +5,29 @@ import {
   setUserLoggedIn,
   logOutUser,
 } from '../reducers/authSlice';
+import { setLoading } from '../reducers/uiSlice';
 /**
  * Action creator for user signup.
  * @param {Object} userData - An object containing user data for signup, including username, email, and password.
  * @param {Function} setBtnLoader - A function to set the loading state of a button during signup.
  * @returns {Function} A Redux function that dispatches actions related to user signup process.
  */
-export const signUpAction = (userData, setBtnLoader) => {
+export const signUpAction = (userData) => {
   return async (dispatch) => {
     try {
-      setBtnLoader(true);
-      console.log(userData);
+      dispatch(setLoading());
       const { data } = await signupUser(userData);
-      console.log(data);
       const userDetails = {
         name: data.name,
         email: data.email,
       };
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
-
       localStorage.setItem('token', data.token);
     } catch (err) {
       console.log(err);
     } finally {
-      setBtnLoader(false);
+      dispatch(setLoading());
     }
   };
 };
@@ -40,10 +38,10 @@ export const signUpAction = (userData, setBtnLoader) => {
  * @param {Function} setBtnLoader - A function to set the loading state of a button during login.
  * @returns {Function} A Redux function that dispatches actions related to user login process.
  */
-export const logInAction = (userData, setBtnLoader) => {
+export const logInAction = (userData) => {
   return async (dispatch) => {
     try {
-      setBtnLoader(true);
+      dispatch(setLoading());
       const { data } = await loginUser(userData);
       const userDetails = {
         name: data.name,
@@ -51,12 +49,11 @@ export const logInAction = (userData, setBtnLoader) => {
       };
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
-
       localStorage.setItem('token', data.token);
     } catch (err) {
       console.log(err);
     } finally {
-      setBtnLoader(false);
+      dispatch(setLoading());
     }
   };
 };
@@ -72,20 +69,19 @@ export const logOutAction = () => {
   };
 };
 
-export const verifyUserAction = (token, setLoader) => {
+export const verifyUserAction = (token) => {
   return async (dispatch) => {
     try {
       const { data } = await verifyUser(token);
-      console.log(data);
       const userDetails = {
         name: data.name,
         email: data.email,
       };
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
-      setLoader(false);
+      dispatch(setLoading());
     } catch (error) {
-      setLoader(false);
+      dispatch(setLoading());
     }
   };
 };

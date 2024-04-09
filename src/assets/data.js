@@ -1,4 +1,4 @@
-import { Link2, CalendarDays, Shield, Settings2 } from 'lucide-react';
+import { Link2, CalendarDays, Shield, Settings2, Plus } from 'lucide-react';
 
 export const menus = [
   { title: 'Home', path: '' },
@@ -7,6 +7,7 @@ export const menus = [
   { title: 'Contact Us', path: '' },
 ];
 export const mainLinks = [
+  { label: 'Create Event', path: '/new-event', icon: Plus },
   { label: 'Event types', path: '/event_types', icon: Link2 },
   {
     label: 'Scheduled events',

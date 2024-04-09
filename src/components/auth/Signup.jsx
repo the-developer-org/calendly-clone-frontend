@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux";
-import { Loader2 } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 import {
     Form,
     FormControl,
@@ -12,16 +12,14 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { signup } from "../../validations/formValidation";
-import { zodResolver } from "@hookform/resolvers/zod"
 
-import CardWrapper from "../common/CardWrapper";
+import { signup } from "../../validations/formValidation";
 import { signUpAction } from "../../store/actions/authActions";
 
+import CardWrapper from "../common/CardWrapper";
 
 const Signup = ({ toggle }) => {
     const dispatch = useDispatch();
-    const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
         resolver: zodResolver(signup),
         defaultValues: {
@@ -31,7 +29,7 @@ const Signup = ({ toggle }) => {
         }
     })
     const onSubmit = (data) => {
-        dispatch(signUpAction(data, setIsSubmitting))
+        dispatch(signUpAction(data))
     }
     return (<>
         <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here" toggle={toggle}>
@@ -86,7 +84,6 @@ const Signup = ({ toggle }) => {
                         />
                     </div>
                     <Button type="submit" className="w-full bg-purple-800 hover:bg-purple-500 text-white ">
-                        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Signup
                     </Button>
                 </form>

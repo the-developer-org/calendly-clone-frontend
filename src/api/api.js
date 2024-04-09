@@ -1,5 +1,5 @@
 import axios from 'axios';
-import environmentConfig from '../config/config';
+import environmentConfig from '../util/config';
 const { API_URL } = environmentConfig;
 const api = axios.create({
   baseURL: API_URL,
@@ -21,5 +21,10 @@ export const signupUser = (userData) => api.post('/auth/signup', userData);
 export const loginUser = (creds) => api.post('/auth/login', creds);
 
 export const verifyUser = (token) => api.post('/auth/verify', { token });
+
+export const createEvent = (eventData, token) =>
+  api.post('/event/create-event', eventData, {
+    headers: { Authorization: token },
+  });
 
 export default api;

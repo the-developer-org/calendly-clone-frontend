@@ -26,3 +26,18 @@ export const login = z.object({
         'Password must be at least 8 characters long, and contain only alphanumeric characters',
     }),
 });
+
+export const event = z.object({
+  name: z.string().min(3, {
+    message: 'Event name should be atleast 3 characters long',
+  }),
+  duration: z.string(),
+  mode: z.string(),
+  meetingLink: z.string(),
+  startDate: z.date(),
+  endDate: z.date(),
+  startTime: z.string(),
+  endTime: z.string(),
+  bufferTime: z.string(),
+  description: z.string(),
+});

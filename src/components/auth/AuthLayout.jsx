@@ -1,9 +1,11 @@
-import { Menu } from "lucide-react"
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import { Menu } from "lucide-react"
 
 import { menus } from '../../assets/data'
 import BrandTitle from "../common/BrandTitle"
+
 const AuthLayout = ({ children }) => {
     const [state, setState] = useState(false)
     return (
@@ -31,15 +33,12 @@ const AuthLayout = ({ children }) => {
                                     <Link to={Menu.path}>{menu.title}</Link>
                                 </li>
                             ))}
-
                         </ul>
                     </div>
                 </div>
             </div>
             <div className="flex-grow flex items-center justify-center">{children}</div>
         </section>
-
     )
 }
-
 export default AuthLayout

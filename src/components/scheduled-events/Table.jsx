@@ -7,7 +7,16 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Edit, Trash } from 'lucide-react'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { EllipsisVertical, Edit, Trash } from 'lucide-react'
+
 
 const ScheduledTable = ({ start, end, data }) => {
     return (
@@ -29,14 +38,20 @@ const ScheduledTable = ({ start, end, data }) => {
                         <TableCell className="flex flex-col items-start">
                             <div>
                                 <p>{event.client_name}</p>
-                                <p>Location: {event.mode}</p>
+                                <p className="hidden sm:block">Location: {event.mode}</p>
                             </div>
                         </TableCell>
                         <TableCell className="text-right">
-                            <div className="flex flex-row justify-end gap-4">
-                                <Trash className="hover:text-red-500 cursor-pointer" />
-                                <Edit className="hover:text-green-400 cursor-pointer" />
-                            </div>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger><EllipsisVertical size={'1.5rem'} /></DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuLabel>Settings</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem className="flex flex-row gap-2 hover:text-red-500 cursor-pointer"><Edit size={"0.75rem"} /> Edit</DropdownMenuItem>
+                                    <DropdownMenuItem className="flex flex-row gap-2 hover:text-green-400 cursor-pointer"><Trash size={"0.75rem"} /> Delete</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+
                         </TableCell>
                     </TableRow>
                 ))}

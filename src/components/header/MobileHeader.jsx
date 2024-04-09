@@ -4,12 +4,10 @@ import { Settings2 } from 'lucide-react'
 const MobileHeader = ({ name }) => {
     return (<>
         <div className=" sm:hidden flex flex-row items-center justify-between h-[4rem]  bg-white z-30 ">
-
             <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-
             <div className=" md:m-3 lg:m-5 flex flex-row items-center gap-x-4">
                 <Button variant="outline" className=" w-full  sm:hidden outline-none border border-blue-400 hover:bg-blue-200 hover:text-blue-600 text-blue-400">New event</Button>
                 <Settings2 className="cursor-pointer hidden sm:block" />

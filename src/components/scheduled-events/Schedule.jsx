@@ -30,7 +30,7 @@ const Schedule = ({ title }) => {
     }
     return (
         <section className="flex flex-col gap-[1rem] mt-1">
-            <MobileHeader name={name} className="block sm:hidden" />
+            <MobileHeader className="block sm:hidden" />
             <h1 className=" text-1xl md:text-2xl lg:text-3xl font-poppins">{title}</h1>
             <ScheduledTable start={startIndex} end={endIndex} data={data} />
             <TablePagination setNext={nextHandler} setPrev={prevHandler} lastPage={lastPage} startIndex={startIndex} endIndex={endIndex} current={current} />

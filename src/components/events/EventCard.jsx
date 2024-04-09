@@ -2,7 +2,6 @@ import CardBody from "./CardBody";
 import CardFooter from "./CardFooter";
 import CardWrapper from "./CardWrapper";
 
-
 const EventCard = ({ title, location, duration }) => {
     return (
         <CardWrapper>

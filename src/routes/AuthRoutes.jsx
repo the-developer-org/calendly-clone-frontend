@@ -1,6 +1,7 @@
+import { Navigate, Route, Routes } from "react-router-dom";
+
 import AuthLayout from "../components/auth/AuthLayout";
 import AuthForm from "../components/auth/AuthForm";
-import { Navigate, Route, Routes } from "react-router-dom";
 
 const AuthRoutes = () => {
     return (<>
@@ -9,9 +10,7 @@ const AuthRoutes = () => {
                 <Route path="/" element={<AuthForm />} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-
         </AuthLayout>
-
     </>);
 }
 export default AuthRoutes;
