@@ -21,6 +21,7 @@ const Preview = ({ details }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { authToken } = useSelector(state => state.auth)
+    console.log(authToken)
     const availableSlots = selected ? details.slots[selected]?.map(slot => slot) : [];
     const submitHandler = () => {
         const { slots, ...eventDetails } = details
