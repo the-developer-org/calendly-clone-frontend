@@ -1,5 +1,6 @@
 import { createEvent, getEvents, getEvent } from '../../api/api';
-
+import { toast } from 'sonner';
+import { errorToastHandler } from '../../util/errrorHandler';
 import {
   setEventDetails,
   removeEventDetails,
@@ -14,8 +15,8 @@ export const createEventAction = (eventData) => {
       setLoading(true);
 
       dispatch(setEventDetails(eventData));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -25,11 +26,12 @@ export const saveEventAction = (eventData, authToken, navigate, setLoading) => {
   return async (dispatch) => {
     try {
       setLoading(true);
-      await createEvent(eventData, authToken);
+        await createEvent(eventData, authToken);
+        toast.success("Created event successfully")
       dispatch(removeEventDetails());
       navigate('/event-types');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      errorToastHandler(error.response, 'createEvent');
     } finally {
       setLoading(false);
     }
@@ -43,7 +45,7 @@ export const getEventsAction = (token) => {
       const { data } = response.data;
       dispatch(allEvents(data));
     } catch (error) {
-      console.log(error);
+      errorToastHandler(error.response, 'getEvents');
     }
   };
 };
@@ -54,7 +56,7 @@ export const getEventAction = (id) => {
       const { data } = response.data;
       dispatch(bookingEvent(data));
     } catch (error) {
-      console.log(error);
+      errorToastHandler(error.response, 'getEvent');
     }
   };
 };

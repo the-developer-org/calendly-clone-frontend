@@ -1,4 +1,6 @@
 import { signupUser, loginUser, verifyUser } from '../../api/api';
+import { toast } from 'sonner';
+import { errorToastHandler } from '../../util/errrorHandler';
 
 import {
   setUserDetails,
@@ -16,6 +18,7 @@ export const signUpAction = (userData, setLoading) => {
     try {
       setLoading(true);
       const response = await signupUser(userData);
+      toast.success('Signup successful');
       const { data } = response.data;
       const userDetails = {
         name: data.name,
@@ -25,8 +28,8 @@ export const signUpAction = (userData, setLoading) => {
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      errorToastHandler(error.response, 'signup');
     } finally {
       setLoading(false);
     }
@@ -53,8 +56,8 @@ export const logInAction = (userData, setLoading) => {
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      errorToastHandler(error.response, 'login');
     } finally {
       setLoading(false);
     }
@@ -87,7 +90,7 @@ export const verifyUserAction = (token, setLoading) => {
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
     } catch (error) {
-      console.log(error);
+      errorToastHandler(error.response, 'verifyuser');
     } finally {
       setLoading(false);
     }
