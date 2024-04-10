@@ -22,9 +22,11 @@ export const loginUser = (creds) => api.post('/auth/login', creds);
 
 export const verifyUser = (token) => api.post('/auth/verify', { token });
 
-export const createEvent = (eventData, token) =>
-  api.post('/event/create-event', eventData, {
+export const createEvent = (eventData, token) => {
+  console.log(token);
+  return api.post('/event/create-event', eventData, {
     headers: { Authorization: token },
   });
+};
 
 export default api;

@@ -66,7 +66,6 @@ const Signup = ({ toggle }) => {
                                 );
                             }}
                         />
-
                         <FormField
                             control={form.control}
                             name="password"
