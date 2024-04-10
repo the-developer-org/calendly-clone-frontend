@@ -19,8 +19,10 @@ const EventPreview = () => {
     const { allEvents } = useSelector(state => state.event)
     const eventData = allEvents[location.pathname.split("/")[2]]
     const details = { ...eventData, startDate: new Date(eventData.startDate), endDate: new Date(eventData.endDate) }
+    console.log(details)
     const [selected, setSelected] = useState(null)
-    const availableSlots = selected ? details.availableSlots[selected]?.map(slot => slot) : [];
+    const slots = selected ? details.availableSlots[selected]?.map(slot => slot) : [];
+    console.log(slots)
     return (
         <>
             <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins">
@@ -82,7 +84,7 @@ const EventPreview = () => {
                         </div>
                     </Card>
                 </div>
-                <div className="flex flex-col  items-center w-full  justify-center lg:w-1/2 md:flex-row ">
+                <div className="flex flex-col  items-center w-full  justify-around lg:w-1/2 md:flex-row ">
                     <div className="flex flex-col items-center justify-center">
                         <BrandTitle />
                         <div>
@@ -98,9 +100,9 @@ const EventPreview = () => {
                         <Button className="sm:hidden" > <Check className="mr-2 h-4 w-4" /> Edit event</Button>
                     </div>
                     <div className="flex flex-row  gap-4 items-center pt-[4rem]">
-                        {selected && (
+                        {selected && slots.length > 0 && (
                             <div className="grid grid-cols-2  md:flex md:flex-col gap-4 md:max-h-[20rem] lg:max-h-[25rem] overflow-y-scroll ">
-                                {availableSlots.map((slot, index) => (
+                                {slots.map((slot, index) => (
                                     <SlotButton key={index} slot={slot} />
                                 ))}
                             </div>

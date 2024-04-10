@@ -1,11 +1,11 @@
 import { toast } from 'sonner';
 
-const errorToastHandler = (error, functionName) => {
-  const { statusCode, message } = error;
-
+export const errorToastHandler = (error, functionName) => {
+  const { status, data } = error;
+  const { message } = data.error;
   switch (functionName) {
     case 'signup':
-      switch (statusCode) {
+      switch (status) {
         case 400:
           toast.error('Error signing up', {
             description: message,
@@ -42,7 +42,7 @@ const errorToastHandler = (error, functionName) => {
       }
       break;
     case 'login':
-      switch (statusCode) {
+      switch (status) {
         case 400:
           toast.error('Error while login', {
             description: message,
@@ -79,7 +79,7 @@ const errorToastHandler = (error, functionName) => {
       }
       break;
     case 'verifyuser':
-      switch (statusCode) {
+      switch (status) {
         case 400:
           toast.error('Error verifying user', {
             description: message,
@@ -116,7 +116,7 @@ const errorToastHandler = (error, functionName) => {
       }
       break;
     case 'createEvent':
-      switch (statusCode) {
+      switch (status) {
         case 400:
           toast.error('Error creating event', {
             description: message,
@@ -153,7 +153,7 @@ const errorToastHandler = (error, functionName) => {
       }
       break;
     case 'getAllEvents':
-      switch (statusCode) {
+      switch (status) {
         case 400:
           toast.error('Error fetching all events', {
             description: message,
@@ -190,7 +190,7 @@ const errorToastHandler = (error, functionName) => {
       }
       break;
     case 'getEvent':
-      switch (statusCode) {
+      switch (status) {
         case 400:
           toast.error('Error fetching event', {
             description: message,
@@ -231,5 +231,3 @@ const errorToastHandler = (error, functionName) => {
       break;
   }
 };
-
-export default errorToastHandler;

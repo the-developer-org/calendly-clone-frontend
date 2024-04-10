@@ -3,7 +3,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import SlotButton from "../new_event/SlotButton";
+import BookButton from "./BookButton";
 import { Clock, Check, } from 'lucide-react'
 import {
     Card,
@@ -22,6 +22,7 @@ const Book = () => {
     useEffect(() => {
         dispatch(getEventAction(id))
     }, [])
+
     const { bookingEvent } = useSelector(state => state.event)
     const details = { ...bookingEvent, startDate: new Date(bookingEvent.startDate), endDate: new Date(bookingEvent.endDate) }
     const [selected, setSelected] = useState(null)
@@ -100,13 +101,13 @@ const Book = () => {
                                     date > details.endDate || date < details.startDate
                                 } />
                         </div>
-                        <Button className="sm:hidden" > <Check className="mr-2 h-4 w-4" /> Edit event</Button>
+
                     </div>
                     <div className="flex flex-row  gap-4 items-center pt-[4rem]">
                         {selected && (
                             <div className="grid grid-cols-2  md:flex md:flex-col gap-4 md:max-h-[20rem] lg:max-h-[25rem] overflow-y-scroll ">
                                 {availableSlots.map((slot, index) => (
-                                    <SlotButton key={index} slot={slot} selectedDate={selected} />
+                                    <BookButton key={index} slot={slot} selectedDate={selected} id={details.id} />
                                 ))}
                             </div>
                         )}

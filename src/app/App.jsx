@@ -16,7 +16,6 @@ const App = () => {
     const { isloggedIn } = useSelector((state) => state.auth)
     const [loading, setLoading] = useState(false)
     const location = useLocation()
-    console.log(location.pathname)
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {

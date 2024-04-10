@@ -26,6 +26,14 @@ export const login = z.object({
         'Password must be at least 8 characters long, and contain only alphanumeric characters',
     }),
 });
+export const slot = z.object({
+  email: z.string().email({
+    message: 'Please enter a valid email address',
+  }),
+  name: z.string().min(1, {
+    message: 'Please enter a valid name',
+  }),
+});
 
 export const event = z.object({
   name: z.string().min(3, {

@@ -57,6 +57,7 @@ export const logInAction = (userData, setLoading) => {
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
     } catch (error) {
+      console.log(error.response);
       errorToastHandler(error.response, 'login');
     } finally {
       setLoading(false);
