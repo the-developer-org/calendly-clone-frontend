@@ -2,7 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const eventSlice = createSlice({
   name: 'eventSlice',
-  initialState: { hasEvent: false, eventDetails: {} },
+  initialState: {
+    hasEvent: false,
+    eventDetails: {},
+    allEvents: [],
+    bookingEvent: {},
+  },
   reducers: {
     setEventDetails(state, action) {
       state.eventDetails = action.payload;
@@ -12,8 +17,15 @@ const eventSlice = createSlice({
       state.userDetails = {};
       state.hasEvent = false;
     },
+    allEvents(state, action) {
+      state.allEvents = action.payload;
+    },
+    bookingEvent(state, action) {
+      state.bookingEvent = action.payload;
+    },
   },
 });
 
 export default eventSlice.reducer;
-export const { setEventDetails, removeEventDetails } = eventSlice.actions;
+export const { setEventDetails, removeEventDetails, allEvents, bookingEvent } =
+  eventSlice.actions;

@@ -10,13 +10,13 @@ const Sidebar = ({ show, setShow }) => {
     const [state, setState] = useState(false);
     return (
         <div
-            className={`flex ${state ? 'flex-col ' : 'flex-row  '} ${show ? 'md:w-[5rem] px-3 py-4' : 'lg:w-[12rem] md:w-[11rem]'}  md:h-full  md:flex-col `}
+            className={`flex  ${state ? 'flex-col ' : 'flex-row  '} ${show ? 'md:w-[5rem] px-3 py-4' : 'lg:w-[12rem] md:w-[11rem]'}  md:h-full  md:flex-col `}
             onMouseEnter={() => setShow(false)}
             onMouseLeave={() => setShow(true)}
         >
             <div className="flex flex-row justify-between w-full">
                 <BrandTitle show={show} />
-                <div className={`${state ? 'block' : 'hidden'}`}>
+                <div className="block sm:hidden">
                     <button
                         className="text-gray-700 outline-none p-5 rounded-md focus:border-gray-400 focus:border"
                         onClick={() => setState(!state)}
@@ -38,7 +38,7 @@ const Sidebar = ({ show, setShow }) => {
 
                         <div className={`pb-3 md:block md:pb-0 md:mt-0 ${state ? "block" : "hidden"}`}>
                             {mainLinks.map((link, index) => (
-                                <Link key={index} to={link.path}>
+                                <Link key={index} to={link.path} onClick={() => setState(!state)}>
                                     <SidebarButton label={link.label} icon={link.icon} />
                                 </Link>
                             ))}

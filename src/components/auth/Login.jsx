@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux";
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from 'lucide-react'
 
 import {
     Form,
@@ -17,9 +18,11 @@ import { login } from "../../validations/formValidation";
 import { logInAction } from "../../store/actions/authActions";
 
 import CardWrapper from "../common/CardWrapper";
+import { useState } from "react";
 
 const Login = ({ toggle }) => {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false)
     const form = useForm({
         resolver: zodResolver(login),
         defaultValues: {
@@ -28,7 +31,7 @@ const Login = ({ toggle }) => {
         }
     })
     const onSubmit = async (data) => {
-        dispatch(logInAction(data))
+        dispatch(logInAction(data, setLoading))
     }
     return (<>
         <CardWrapper label="Welcome back, we missed you." title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here" toggle={toggle}>
@@ -67,6 +70,7 @@ const Login = ({ toggle }) => {
                         />
                     </div>
                     <Button type="submit" className="w-full  bg-purple-800 hover:bg-purple-500 text-white " >
+                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Login
                     </Button>
                 </form>
