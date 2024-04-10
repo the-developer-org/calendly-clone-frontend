@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux";
-import { Loader2 } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 import {
     Form,
     FormControl,
@@ -9,38 +9,36 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/Form"
-import { Input } from "@/components/ui/Input"
-import { Button } from "@/components/ui/Button"
-import { signupSchema } from "@/schema";
-import { zodResolver } from "@hookform/resolvers/zod"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
+import { signup } from "../../validations/formValidation";
+import { signUpAction } from "../../store/actions/authActions";
 
 import CardWrapper from "../common/CardWrapper";
-import { signUpAction } from "@/store/actions/authActions";
 
-
-const Signup = () => {
+const Signup = ({ toggle }) => {
     const dispatch = useDispatch();
-    const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
-        resolver: zodResolver(signupSchema),
+        resolver: zodResolver(signup),
         defaultValues: {
-            username: "",
+            name: "",
             email: "",
             password: ""
         }
     })
     const onSubmit = (data) => {
-        dispatch(signUpAction(data, setIsSubmitting))
+        dispatch(signUpAction(data))
     }
     return (<>
-        <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here">
+        <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here" toggle={toggle}>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="name"
                             render={({ field }) => {
                                 return (
                                     <FormItem>
@@ -86,7 +84,6 @@ const Signup = () => {
                         />
                     </div>
                     <Button type="submit" className="w-full bg-purple-800 hover:bg-purple-500 text-white ">
-                        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Signup
                     </Button>
                 </form>

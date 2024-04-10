@@ -1,18 +1,16 @@
-import AuthLayout from "@/components/auth/AuthLayout";
-import Login from "@/components/auth/Login";
-import Signup from "@/components/auth/Signup";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import AuthLayout from "../components/auth/AuthLayout";
+import AuthForm from "../components/auth/AuthForm";
 
 const AuthRoutes = () => {
     return (<>
         <AuthLayout>
             <Routes>
-                <Route path="/auth/signup" element={<Signup />} />
-                <Route path="/auth/login" element={<Login />} />
-                <Route path="/auth/*" element={<Navigate to="/auth/login" />} />
+                <Route path="/" element={<AuthForm />} />
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </AuthLayout>
-
     </>);
 }
 export default AuthRoutes;

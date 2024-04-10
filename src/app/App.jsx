@@ -1,23 +1,31 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
-import './App.css'
-import PageLoader from '@/components/common/PageLoader'
-import AuthRoutes from '@/routes/AuthRoutes';
-import { Toaster } from "@/components/ui/Sonner"
+import UserRoutes from '../routes/UserRoutes';
+import AuthRoutes from '../routes/AuthRoutes';
 
-import { useSelector } from 'react-redux';
-import UserRoutes from '@/routes/UserRoutes';
+import { verifyUserAction } from "../store/actions/authActions";
+import { setLoading } from '../store/reducers/uiSlice';
 
+import { Toaster } from "@/components/ui/sonner"
+import PageLoader from '../components/common/PageLoader'
 
+const App = () => {
+    const dispatch = useDispatch();
+    const { isloggedIn } = useSelector((state) => state.auth)
+    const { isLoading } = useSelector((state) => state.ui)
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            dispatch(verifyUserAction(token));
+        } else {
+            dispatch(setLoading())
+        }
+    }, [dispatch]);
 
-
-function App() {
-    const { isLoggedIn } = useSelector((state) => state.auth)
-    const [loading, setLoading] = useState(false);
     return (
         <>
-            {loading && <PageLoader />}
-            {isLoggedIn ? <UserRoutes /> : <AuthRoutes />}
+            {isLoading ? <PageLoader /> : isloggedIn ? <UserRoutes /> : <AuthRoutes />}
             <Toaster />
         </>
     )

@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux";
-import { Loader2 } from "lucide-react"
 import { zodResolver } from "@hookform/resolvers/zod"
+
 import {
     Form,
     FormControl,
@@ -10,29 +9,29 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/Form"
-import { Input } from "@/components/ui/Input"
-import { Button } from "@/components/ui/Button"
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
+import { login } from "../../validations/formValidation";
+import { logInAction } from "../../store/actions/authActions";
+
 import CardWrapper from "../common/CardWrapper";
-import { loginSchema } from "@/schema";
-import { logInAction } from "@/store/actions/authActions";
 
-
-const Login = () => {
+const Login = ({ toggle }) => {
     const dispatch = useDispatch();
-    const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm({
-        resolver: zodResolver(loginSchema),
+        resolver: zodResolver(login),
         defaultValues: {
             email: "",
             password: ""
         }
     })
     const onSubmit = async (data) => {
-        dispatch(logInAction(data, setIsSubmitting))
+        dispatch(logInAction(data))
     }
     return (<>
-        <CardWrapper label="Welcome back, we missed you." title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here">
+        <CardWrapper label="Welcome back, we missed you." title="Login" backButtonPath="/auth/signup" backButtonLabel="Don't have an account? Signup here" toggle={toggle}>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-4">
@@ -51,7 +50,6 @@ const Login = () => {
                                 );
                             }}
                         />
-
                         <FormField
                             control={form.control}
                             name="password"
@@ -69,7 +67,6 @@ const Login = () => {
                         />
                     </div>
                     <Button type="submit" className="w-full  bg-purple-800 hover:bg-purple-500 text-white " >
-                        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Login
                     </Button>
                 </form>
