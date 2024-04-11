@@ -32,5 +32,19 @@ export const getEvents = (token) =>
 export const getEvent = (id) => api.get(`/event/get-event/${id}`);
 
 export const bookSlot = (data) => api.post('/slot/book-slot', data);
-export const deleteEvent = (id) => api.post('/event/delete-event', { id });
+export const deleteEvent = (eventId, token) =>
+  api.post(
+    '/event/delete-event',
+    { eventId },
+    {
+      headers: { Authorization: token },
+    }
+  );
+
+export const getBookedSlots = (token) => {
+  return api.get('/slot/get-booked-slots', {
+    headers: { Authorization: token },
+  });
+};
+
 export default api;

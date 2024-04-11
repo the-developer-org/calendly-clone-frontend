@@ -1,4 +1,11 @@
-import { createEvent, getEvents, getEvent, bookSlot } from '../../api/api';
+import {
+  createEvent,
+  getEvents,
+  getEvent,
+  bookSlot,
+  getBookedSlots,
+  deleteEvent,
+} from '../../api/api';
 import { toast } from 'sonner';
 import { errorToastHandler } from '../../util/errrorHandler';
 import {
@@ -6,6 +13,7 @@ import {
   removeEventDetails,
   allEvents,
   bookingEvent,
+  setBookedEvents,
 } from '../reducers/eventSlice';
 import { setLoading } from '../reducers/uiSlice';
 
@@ -37,7 +45,7 @@ export const saveEventAction = (eventData, authToken, navigate, setLoading) => {
   };
 };
 
-export const getEventsAction = (token) => {
+export const getEventsAction = (token, setLoader) => {
   return async (dispatch) => {
     try {
       const response = await getEvents(token);
@@ -45,6 +53,8 @@ export const getEventsAction = (token) => {
       dispatch(allEvents(data));
     } catch (error) {
       errorToastHandler(error.response, 'getEvents');
+    } finally {
+      setLoader(false);
     }
   };
 };
@@ -75,4 +85,46 @@ export const bookSlotAction = (slotData, setLoading) => {
     }
   };
 };
-export const deleteEventAction = (id, setLoading) => {};
+export const deleteEventAction = (id, setLoading) => {
+  return async (dispatch, getState) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return toast.error('token missing');
+    }
+    try {
+      setLoading(true);
+      await deleteEvent(id, token);
+      const prevEvents = getState().event.allEvents;
+      const newEvents = prevEvents.filter((event) => {
+        return event.id !== id;
+      });
+      dispatch(allEvents(newEvents));
+      toast.success('Event Deleted');
+    } catch (error) {
+      console.log(error);
+      toast.error('error in deleting event');
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
+export const fecthedBookSlots = (setLoader) => {
+  const token = localStorage.getItem('token');
+  return async (dispatch) => {
+    try {
+      if (!token) {
+        setLoader(false);
+        return toast.error('error fetching book events');
+      }
+      const { data } = await getBookedSlots(token);
+      if (data) {
+        dispatch(setBookedEvents(data.data));
+      }
+    } catch (error) {
+      errorToastHandler(error.response, 'get booked events ');
+    } finally {
+      setLoader(false);
+    }
+  };
+};

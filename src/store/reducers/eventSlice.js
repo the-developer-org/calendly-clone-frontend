@@ -7,6 +7,7 @@ const eventSlice = createSlice({
     eventDetails: {},
     allEvents: [],
     bookingEvent: {},
+    bookedEvents: [],
   },
   reducers: {
     setEventDetails(state, action) {
@@ -23,9 +24,17 @@ const eventSlice = createSlice({
     bookingEvent(state, action) {
       state.bookingEvent = action.payload;
     },
+    setBookedEvents(state, action) {
+      state.bookedEvents = action.payload;
+    },
   },
 });
 
 export default eventSlice.reducer;
-export const { setEventDetails, removeEventDetails, allEvents, bookingEvent } =
-  eventSlice.actions;
+export const {
+  setEventDetails,
+  removeEventDetails,
+  allEvents,
+  bookingEvent,
+  setBookedEvents,
+} = eventSlice.actions;
