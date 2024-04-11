@@ -1,19 +1,46 @@
-
 import EventCard from "./EventCard";
 import MobileHeader from "../header/MobileHeader";
 
-import { cardsData } from "../../assets/data";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getEventsAction } from "@/store/actions/eventActions";
+import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 const EventPage = ({ title }) => {
+    const dispatch = useDispatch();
+    const { userDetails } = useSelector(state => state.auth);
+
+
+    useEffect(() => {
+        dispatch(getEventsAction(userDetails.token));
+    }, [dispatch, userDetails]);
+
+    const { allEvents } = useSelector(state => state.event);
+
+
     return (
         <section className="flex flex-col gap-[1rem]">
             <MobileHeader className="block sm:hidden" />
-            <h1 className=" text-1xl md:text-2xl lg:text-3xl font-poppins">{title}</h1>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2  xl:grid-cols-3 ">
-                {cardsData.map((card, index) => (
-                    <EventCard key={index} title={card.name} duration={card.duration} location={card.location} />
-                ))}
-            </div>
+            <h1 className="text-1xl md:text-2xl lg:text-3xl font-poppins">{title}</h1>
+            {allEvents.length > 0 ?
+                <div className="grid grid-cols-1 p-4 gap-4 md:grid-cols-2 md:gap-x-0 xl:grid-cols-3">
+                    {Object.entries(allEvents).map(([eventId, eventData]) => (
+                        <EventCard
+                            key={eventId}
+                            id={eventId}
+                            data={eventData}
+                        />
+                    ))}
+                </div> :
+                <div className="flex flex-col gap-3 items-center justify-center">
+                    <p> No events here.. Create one? </p>
+                    <Link to={'/new-event'}>
+                        <Button> Create Event</Button>
+                    </Link>
+
+                </div>}
+
         </section>
     );
 };

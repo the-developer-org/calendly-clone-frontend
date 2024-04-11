@@ -2,10 +2,11 @@ import CardBody from "./CardBody";
 import CardFooter from "./CardFooter";
 import CardWrapper from "./CardWrapper";
 
-const EventCard = ({ title, location, duration }) => {
+const EventCard = ({ data, id }) => {
+
     return (
         <CardWrapper>
-            <CardBody title={title} duration={duration} location={location} />
+            <CardBody data={data} id={id} />
             <CardFooter />
         </CardWrapper >
 

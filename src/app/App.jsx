@@ -1,31 +1,47 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import UserRoutes from '../routes/UserRoutes';
 import AuthRoutes from '../routes/AuthRoutes';
 
 import { verifyUserAction } from "../store/actions/authActions";
-import { setLoading } from '../store/reducers/uiSlice';
 
 import { Toaster } from "@/components/ui/sonner"
 import PageLoader from '../components/common/PageLoader'
+import BookingRoutes from '@/routes/BookingRoutes';
 
 const App = () => {
     const dispatch = useDispatch();
     const { isloggedIn } = useSelector((state) => state.auth)
-    const { isLoading } = useSelector((state) => state.ui)
+    const [loading, setLoading] = useState(false)
+    const location = useLocation()
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            dispatch(verifyUserAction(token));
+            dispatch(verifyUserAction(token, setLoading));
+
         } else {
-            dispatch(setLoading())
+            setLoading(false)
         }
     }, [dispatch]);
+    const renderRoutes = () => {
+        const { pathname } = location;
+        if (isloggedIn) {
+            return <UserRoutes />
+        }
+        else {
+            if (pathname.startsWith("/book")) {
+                return <BookingRoutes />;
+            } else {
+                return <AuthRoutes />;
+            }
+        }
 
+    };
     return (
         <>
-            {isLoading ? <PageLoader /> : isloggedIn ? <UserRoutes /> : <AuthRoutes />}
+            {loading ? <PageLoader /> : renderRoutes()}
             <Toaster />
         </>
     )

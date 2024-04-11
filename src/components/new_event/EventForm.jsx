@@ -57,6 +57,10 @@ const EventForm = ({ setActiveTab }) => {
         if (storedFormData) {
             form.reset(storedFormData);
         }
+        else {
+            const updateData = JSON.parse(localStorage.getItem('updateData'))
+            form.reset(updateData)
+        }
     }, [form]);
     const onSubmit = async (data) => {
         const schedule = generateSchedule(data)
@@ -274,7 +278,7 @@ const EventForm = ({ setActiveTab }) => {
                             <div className="grid grid-cols-2 gap-2">
                                 <FormField
                                     control={form.control}
-                                    name="buffer"
+                                    name="bufferTime"
                                     className=""
                                     render={({ field }) => (
                                         <FormItem >
