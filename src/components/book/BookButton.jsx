@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -9,31 +10,36 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Loader2 } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { bookSlotAction } from '../../store/actions/eventActions';
 
-const BookButton = ({ slot, selectedDate, id }) => {
-    const location = useLocation();
+const BookButton = ({ slot, selectedDate, id, setBooked, setTime }) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
     const [showDialog, setShowDialog] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         userName: '',
         userEmail: ''
     });
-
     const onClickHandler = () => {
         setShowDialog(!showDialog);
     };
 
     const onSubmitHandler = (e) => {
-        e.preventDefault(); // Prevent form submission from reloading the page
-        console.log("Form Data:", formData);
+        e.preventDefault();
         const data = {
             ...formData,
             eventId: id,
             eventStartTime: slot.startTime,
             eventEndTime: slot.endTime,
-            date: selectedDate
+            eventDate: selectedDate
         }
+        dispatch(bookSlotAction(data, setLoading))
+        setBooked(true)
+        setTime(slot.startTime)
     }
 
     const handleChange = (e) => {
@@ -46,7 +52,8 @@ const BookButton = ({ slot, selectedDate, id }) => {
 
     return (
         <div className='flex flex-row  gap-2 justify-between w-[10rem]'>
-            <Button disabled={slot.availabilty} variant="outline" className={`hover:bg-blue-200 ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
+
+            <Button disabled={slot.availabilty} variant="outline" className={`hover:bg-gray-200 bg-black text-white ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
                 {slot.startTime}
             </Button>
             {showDialog && (
@@ -61,15 +68,15 @@ const BookButton = ({ slot, selectedDate, id }) => {
                         <form onSubmit={onSubmitHandler}>
                             <div className="grid gap-4 py-4">
                                 <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="name" className="text-right">
+                                    <Label htmlFor="userName" className="text-right">
                                         Name
                                     </Label>
                                     <Input
-                                        id="name"
-                                        name="name"
+                                        id="userName"
+                                        name="userName"
                                         placeholder="John Doe"
                                         className="col-span-3"
-                                        value={formData.name}
+                                        value={formData.userName}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -78,17 +85,18 @@ const BookButton = ({ slot, selectedDate, id }) => {
                                         Email
                                     </Label>
                                     <Input
-                                        id="email"
-                                        name="email"
+                                        id="userEmail"
+                                        name="userEmail"
                                         placeholder="johndoe@example.com"
                                         className="col-span-3"
-                                        value={formData.email}
+                                        value={formData.userEmail}
                                         onChange={handleChange}
                                     />
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button type="submit">Save changes</Button>
+                                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                <Button type="submit">Book Slot</Button>
                             </DialogFooter>
                         </form>
                     </DialogContent>

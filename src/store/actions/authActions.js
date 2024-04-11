@@ -47,6 +47,7 @@ export const logInAction = (userData, setLoading) => {
     try {
       setLoading(true);
       const response = await loginUser(userData);
+      toast.success('Login successful');
       const { data } = response.data;
       const userDetails = {
         name: data.name,

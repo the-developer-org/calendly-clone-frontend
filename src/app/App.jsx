@@ -27,12 +27,12 @@ const App = () => {
     }, [dispatch]);
     const renderRoutes = () => {
         const { pathname } = location;
-        if (isloggedIn) {
-            return <UserRoutes />
+        if (pathname.startsWith("/book")) {
+            return <BookingRoutes />
         }
         else {
-            if (pathname.startsWith("/book")) {
-                return <BookingRoutes />;
+            if (isloggedIn) {
+                return <UserRoutes />;
             } else {
                 return <AuthRoutes />;
             }

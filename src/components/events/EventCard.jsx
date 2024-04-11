@@ -7,7 +7,7 @@ const EventCard = ({ data, id }) => {
     return (
         <CardWrapper>
             <CardBody data={data} id={id} />
-            <CardFooter />
+            <CardFooter data={data} />
         </CardWrapper >
 
     )

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const SlotButton = ({ slot, selectedDate }) => {
     return (
-        <div className='flex flex-row w-full gap-2 justify-between max-w-[12rem]'>
+        <div className='flex flex-row  gap-2 justify-around w-40'>
             <Button disabled={slot.availabilty} variant="outline" className={`hover:bg-blue-200 w-full`} o>
                 {slot.startTime}
             </Button>

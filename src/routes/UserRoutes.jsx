@@ -23,10 +23,10 @@ const UserRoutes = () => {
             <main className={`relative md:mt-[6rem]  w-full overflow-x-hidden ${show ? 'p-[1rem] md:pl-[6rem]' : 'p-[1rem] md:pl-[13rem]'}`}>
                 <Routes>
                     <Route path="/preview/:id" element={<EventPreview />} />
-                    <Route path="/event_types" element={<EventPage title="My Events" />} />
+                    <Route path="/events" element={<EventPage title="My Events" />} />
                     <Route path="/new-event/*" element={<NewEvent />} />
                     <Route path="/scheduled_events" element={<Schedule title="Scheduled Events" />} />
-                    <Route path="*" element={<Navigate to="/event_types" />} />
+                    <Route path="*" element={<Navigate to="/events" />} />
                 </Routes>
             </main>
         </>
