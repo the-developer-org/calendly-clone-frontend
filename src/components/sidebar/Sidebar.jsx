@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Menu } from 'lucide-react';
+import { EyeOff, Menu } from 'lucide-react';
 import BrandTitle from '../common/BrandTitle';
 import { Button } from '@/components/ui/button';
 import { mainLinks } from '../../assets/data';
@@ -28,7 +28,7 @@ const Sidebar = ({ show, setShow }) => {
             className="text-gray-700 outline-none p-5 rounded-md focus:border-gray-400 focus:border"
             onClick={() => setState(!state)}
           >
-            <Menu />
+            {!state ? <Menu /> : <EyeOff />}
           </button>
         </div>
       </div>
@@ -48,9 +48,9 @@ const Sidebar = ({ show, setShow }) => {
               <SidebarButton label={'Log Out'} icon={LogOut} show={show} />
             </button>
           </div>
-          <div className="md:hidden relative items-end">
+          <div className="md:hidden relative items-end w-full">
             <div
-              className={`pb-3 md:block md:pb-0 md:mt-0 ${state ? 'block' : 'hidden'}`}
+              className={`pb-3 md:block md:pb-0 md:mt-0 ${state ? 'block' : 'hidden'} flex flex-col  justify-start items-start absolute top-0 right-0 bg-gray-200 z-50 w-[60%] h-[calc(100vh-4rem)]`}
             >
               {mainLinks.map((link, index) => (
                 <Link
@@ -61,6 +61,12 @@ const Sidebar = ({ show, setShow }) => {
                   <SidebarButton label={link.label} icon={link.icon} />
                 </Link>
               ))}
+              <button
+                onClick={logOutHandeler}
+                className="flex justify-center items-center"
+              >
+                <SidebarButton label={'Log Out'} icon={LogOut} show={show} />
+              </button>
             </div>
           </div>
         </div>
