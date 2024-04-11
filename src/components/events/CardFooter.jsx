@@ -16,7 +16,6 @@ import { deleteEventAction } from '@/store/actions/eventActions';
 const CardFooter = ({ data }) => {
   const dispatch = useDispatch();
   const [copySuccess, setCopySuccess] = useState('');
-  const [btnLoader, setBtnLoader] = useState(false);
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -29,7 +28,7 @@ const CardFooter = ({ data }) => {
   const eventName = data.name.toLowerCase().replace(/\s+/g, '_');
   const linkToCopy = `http://localhost:5173/book/${eventName}/${data.id}`;
   const deleteHandler = () => {
-    dispatch(deleteEventAction(data.id, setBtnLoader));
+    dispatch(deleteEventAction(data.id));
   };
   const editHandler = () => {
     console.log('hello');
@@ -49,7 +48,7 @@ const CardFooter = ({ data }) => {
           Copy Link
         </p>
       </div>
-      {copySuccess && <span>{copySuccess}</span>}
+
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Settings size={'1.5rem'} />

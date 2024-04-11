@@ -7,6 +7,7 @@ import {
   setUserLoggedIn,
   logOutUser,
 } from '../reducers/authSlice';
+import { resetEventValues } from '../reducers/eventSlice';
 /**
  * Action creator for user signup.
  * @param {Object} userData - An object containing user data for signup, including username, email, and password.
@@ -73,6 +74,7 @@ export const logInAction = (userData, setLoading) => {
 export const logOutAction = () => {
   return (dispatch) => {
     dispatch(logOutUser());
+    dispatch(resetEventValues());
     localStorage.removeItem('token');
   };
 };

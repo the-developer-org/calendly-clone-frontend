@@ -27,6 +27,13 @@ const eventSlice = createSlice({
     setBookedEvents(state, action) {
       state.bookedEvents = action.payload;
     },
+    resetEventValues(state, action) {
+      (state.allEvents = []),
+        (state.bookedEvents = []),
+        (state.bookingEvent = {}),
+        (state.eventDetails = {}),
+        (state.hasEvent = false);
+    },
   },
 });
 
@@ -37,4 +44,5 @@ export const {
   allEvents,
   bookingEvent,
   setBookedEvents,
+  resetEventValues,
 } = eventSlice.actions;

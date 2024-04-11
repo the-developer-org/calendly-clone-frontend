@@ -92,7 +92,6 @@ export const deleteEventAction = (id, setLoading) => {
       return toast.error('token missing');
     }
     try {
-      setLoading(true);
       await deleteEvent(id, token);
       const prevEvents = getState().event.allEvents;
       const newEvents = prevEvents.filter((event) => {
@@ -103,8 +102,6 @@ export const deleteEventAction = (id, setLoading) => {
     } catch (error) {
       console.log(error);
       toast.error('error in deleting event');
-    } finally {
-      setLoading(false);
     }
   };
 };

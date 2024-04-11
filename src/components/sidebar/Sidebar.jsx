@@ -5,9 +5,16 @@ import { Button } from '@/components/ui/button';
 import { mainLinks } from '../../assets/data';
 import { Link } from 'react-router-dom';
 import SidebarButton from './SidebarButton';
-
+import { LogOut } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { logOutAction } from '@/store/actions/authActions';
 const Sidebar = ({ show, setShow }) => {
+  const dispatch = useDispatch();
   const [state, setState] = useState(false);
+
+  const logOutHandeler = () => {
+    dispatch(logOutAction());
+  };
   return (
     <div
       className={`flex  ${state ? 'flex-col ' : 'flex-row  '} ${show ? 'md:w-[5rem] px-3 py-4' : 'lg:w-[12rem] md:w-[11rem]'}  md:h-full  md:flex-col `}
@@ -37,6 +44,9 @@ const Sidebar = ({ show, setShow }) => {
                 />
               </Link>
             ))}
+            <button onClick={logOutHandeler}>
+              <SidebarButton label={'Log Out'} icon={LogOut} show={show} />
+            </button>
           </div>
           <div className="md:hidden relative items-end">
             <div
