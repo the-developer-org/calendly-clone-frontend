@@ -69,16 +69,15 @@ export const getEventAction = (id) => {
     }
   };
 };
-export const bookSlotAction = (slotData, setLoading) => {
+export const bookSlotAction = (slotData, setLoading, setBooked) => {
   return async (dispatch) => {
     try {
       setLoading(true);
-      const response = await bookSlot(slotData);
+      await bookSlot(slotData);
       toast.success('Slot booking successful');
-      const { data } = response.data;
-      console.log(data);
+      setBooked(true);
     } catch (error) {
-      console.log(error);
+      setBooked(false);
       errorToastHandler(error.response, 'getEvent');
     } finally {
       setLoading(false);

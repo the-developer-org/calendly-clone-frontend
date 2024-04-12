@@ -109,10 +109,11 @@ const Book = () => {
                                 <div className="grid grid-cols-2  md:flex md:flex-col gap-4 md:max-h-[20rem] lg:max-h-[25rem] overflow-y-scroll ">
                                     {availableSlots.map((slot, index) => {
                                         if (slot.availability) {
-                                            return <BookButton key={index} slot={slot} selectedDate={selected} id={details.id} setBooked={setBooked} setTime={setTime} />
+                                            return <BookButton key={index} slot={slot} event={details} selectedDate={selected} id={details.id} setBooked={setBooked} setTime={setTime} />
                                         }
                                         else {
-                                            return <Button key={index} variant="destructive" className={`hover:bg-red-200 w-full cursor-not-allowed`} >
+                                            return <Button key={index} variant="destructive" className={`hover:bg-red-200 w-full cursor-not-allowed flex flex-row gap-2`} >
+                                                <p>{slot.startTime}</p>
                                                 Booked
                                             </Button>
                                         }

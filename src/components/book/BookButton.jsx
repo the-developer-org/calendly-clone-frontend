@@ -15,8 +15,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { bookSlotAction } from '../../store/actions/eventActions';
 
-const BookButton = ({ slot, selectedDate, id, setBooked, setTime }) => {
-    const navigate = useNavigate()
+const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event }) => {
+
     const dispatch = useDispatch();
     const [showDialog, setShowDialog] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -35,10 +35,11 @@ const BookButton = ({ slot, selectedDate, id, setBooked, setTime }) => {
             eventId: id,
             eventStartTime: slot.startTime,
             eventEndTime: slot.endTime,
-            eventDate: selectedDate
+            eventDate: selectedDate,
+            eventName: event.name,
+            eventLink: event.meetingLink
         }
-        dispatch(bookSlotAction(data, setLoading))
-        setBooked(true)
+        dispatch(bookSlotAction(data, setLoading, setBooked))
         setTime(slot.startTime)
     }
 
@@ -53,7 +54,7 @@ const BookButton = ({ slot, selectedDate, id, setBooked, setTime }) => {
     return (
         <div className='flex flex-row  gap-2 justify-between w-[10rem]'>
 
-            <Button disabled={slot.availabilty} variant="outline" className={`hover:bg-gray-200 bg-black text-white ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
+            <Button disabled={slot.availabilty} variant="outline" className={`hover:bg-purple-200 bg-purple-400 text-white ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
                 {slot.startTime}
             </Button>
             {showDialog && (
