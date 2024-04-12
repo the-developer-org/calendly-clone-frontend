@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Button } from "@/components/ui/button";
 import {
@@ -96,8 +95,8 @@ const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event }) => {
                 </div>
               </div>
               <DialogFooter>
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                <Button type="submit">Book Slot</Button>
+
+                <Button type="submit">{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Book Slot</Button>
               </DialogFooter>
             </form>
           </DialogContent>

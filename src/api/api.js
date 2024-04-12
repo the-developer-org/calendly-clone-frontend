@@ -41,8 +41,12 @@ export const deleteEvent = (eventId, token) =>
     }
   );
 
-export const getBookedSlots = (token) => {
-  return api.get('/slot/get-booked-slots', {
+export const getBookedSlots = (current, rows, token) => {
+  return api.get(`/slot/get-booked-slots`, {
+    params: {
+      current: current,
+      rows: rows,
+    },
     headers: { Authorization: token },
   });
 };
