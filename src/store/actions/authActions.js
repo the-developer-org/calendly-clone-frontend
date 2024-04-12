@@ -7,6 +7,7 @@ import {
   setUserLoggedIn,
   logOutUser,
 } from '../reducers/authSlice';
+import { resetEventValues } from '../reducers/eventSlice';
 /**
  * Action creator for user signup.
  * @param {Object} userData - An object containing user data for signup, including username, email, and password.
@@ -29,7 +30,13 @@ export const signUpAction = (userData, setLoading) => {
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
     } catch (error) {
-      errorToastHandler(error.response, 'signup');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'signup');
     } finally {
       setLoading(false);
     }
@@ -47,6 +54,7 @@ export const logInAction = (userData, setLoading) => {
     try {
       setLoading(true);
       const response = await loginUser(userData);
+      toast.success('Login successful');
       const { data } = response.data;
       const userDetails = {
         name: data.name,
@@ -57,8 +65,13 @@ export const logInAction = (userData, setLoading) => {
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
     } catch (error) {
-      console.log(error.response);
-      errorToastHandler(error.response, 'login');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'login');
     } finally {
       setLoading(false);
     }
@@ -72,6 +85,7 @@ export const logInAction = (userData, setLoading) => {
 export const logOutAction = () => {
   return (dispatch) => {
     dispatch(logOutUser());
+    dispatch(resetEventValues());
     localStorage.removeItem('token');
   };
 };
@@ -91,7 +105,13 @@ export const verifyUserAction = (token, setLoading) => {
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
     } catch (error) {
-      errorToastHandler(error.response, 'verifyuser');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'verifyuser');
     } finally {
       setLoading(false);
     }
