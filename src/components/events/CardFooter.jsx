@@ -31,7 +31,6 @@ const CardFooter = ({ data }) => {
     dispatch(deleteEventAction(data.id));
   };
   const editHandler = () => {
-    console.log('hello');
     toast.info('Feature not added yet', {
       description: 'We are adding this feature soon',
     });

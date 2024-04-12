@@ -30,7 +30,13 @@ export const signUpAction = (userData, setLoading) => {
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
     } catch (error) {
-      errorToastHandler(error.response, 'signup');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'signup');
     } finally {
       setLoading(false);
     }
@@ -59,8 +65,13 @@ export const logInAction = (userData, setLoading) => {
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
     } catch (error) {
-      console.log(error.response);
-      errorToastHandler(error.response, 'login');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'login');
     } finally {
       setLoading(false);
     }
@@ -94,7 +105,13 @@ export const verifyUserAction = (token, setLoading) => {
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
     } catch (error) {
-      errorToastHandler(error.response, 'verifyuser');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'verifyuser');
     } finally {
       setLoading(false);
     }

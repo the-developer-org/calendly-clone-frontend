@@ -24,9 +24,8 @@ const AuthLayout = ({ children }) => {
             </div>
           </div>
           <div
-            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 absolute top-16 right-0 bg-gray-200 md:bg-transparent md:static h-[calc(100vh-6rem)] md:h-fit w-[50%] ${
-              state ? 'block' : 'hidden'
-            }`}
+            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 absolute top-16 right-0 bg-gray-200 md:bg-transparent md:static h-[calc(100vh-6rem)] md:h-fit w-[50%] ${state ? 'block' : 'hidden'
+              }`}
           >
             <ul className="justify-end items-center space-y-6 md:flex md:space-x-6 xl:space-x-7 2xl:space-x-9 md:space-y-0 pl-4 md:pl-0">
               {menus.map((menu, idx) => (

@@ -38,7 +38,13 @@ export const saveEventAction = (eventData, authToken, navigate, setLoading) => {
       dispatch(removeEventDetails());
       navigate('/event-types');
     } catch (error) {
-      errorToastHandler(error.response, 'createEvent');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'createEvent');
     } finally {
       setLoading(false);
     }
@@ -52,7 +58,13 @@ export const getEventsAction = (token, setLoader) => {
       const { data } = response.data;
       dispatch(allEvents(data));
     } catch (error) {
-      errorToastHandler(error.response, 'getEvents');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'getEvents');
     } finally {
       setLoader(false);
     }
@@ -65,7 +77,13 @@ export const getEventAction = (id) => {
       const { data } = response.data;
       dispatch(bookingEvent(data));
     } catch (error) {
-      errorToastHandler(error.response, 'getEvent');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'getEvent');
     }
   };
 };
@@ -78,7 +96,13 @@ export const bookSlotAction = (slotData, setLoading, setBooked) => {
       setBooked(true);
     } catch (error) {
       setBooked(false);
-      errorToastHandler(error.response, 'getEvent');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'getEvent');
     } finally {
       setLoading(false);
     }
@@ -99,8 +123,11 @@ export const deleteEventAction = (id, setLoading) => {
       dispatch(allEvents(newEvents));
       toast.success('Event Deleted');
     } catch (error) {
-      console.log(error);
-      toast.error('error in deleting event');
+      const data = error.response || {
+        status: 500,
+        data: { error: { message: 'Please try again later' } },
+      };
+      errorToastHandler(data, 'deleteEvent');
     }
   };
 };
@@ -118,7 +145,13 @@ export const fecthedBookSlots = (setLoader) => {
         dispatch(setBookedEvents(data.data));
       }
     } catch (error) {
-      errorToastHandler(error.response, 'get booked events ');
+      const data = error.response
+        ? error.response
+        : {
+            status: 500,
+            data: { error: { message: 'Please try again later' } },
+          };
+      errorToastHandler(data, 'bookEvent');
     } finally {
       setLoader(false);
     }

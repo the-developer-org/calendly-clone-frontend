@@ -1,7 +1,7 @@
 import { toast } from 'sonner';
 
 export const errorToastHandler = (error, functionName) => {
-  const { status, data } = error;
+  const { status = 500, data = { error: { messagae: '' } } } = error;
   const { message } = data.error;
   switch (functionName) {
     case 'signup':
@@ -218,6 +218,80 @@ export const errorToastHandler = (error, functionName) => {
           break;
         case 500:
           toast.error('Error fetching event', {
+            description: message,
+          });
+          break;
+        default:
+          toast.error('Oopps... Something went wrong');
+          break;
+      }
+      break;
+    case 'deleteEvent':
+      switch (status) {
+        case 400:
+          toast.error('Error deleting event', {
+            description: message,
+          });
+          break;
+        case 404:
+          toast.error('Error deleting event', {
+            description: message,
+          });
+          break;
+        case 401:
+          toast.error('Error deleting event', {
+            description: message,
+          });
+          break;
+        case 403:
+          toast.error('Error deleting event', {
+            description: message,
+          });
+          break;
+        case 409:
+          toast.error('Error deleting event', {
+            description: message,
+          });
+          break;
+        case 500:
+          toast.error('Error deleting event', {
+            description: message,
+          });
+          break;
+        default:
+          toast.error('Oopps... Something went wrong');
+          break;
+      }
+      break;
+    case 'bookEvent':
+      switch (status) {
+        case 400:
+          toast.error('Error booking event', {
+            description: message,
+          });
+          break;
+        case 404:
+          toast.error('Error booking event', {
+            description: message,
+          });
+          break;
+        case 401:
+          toast.error('Error booking event', {
+            description: message,
+          });
+          break;
+        case 403:
+          toast.error('Error booking event', {
+            description: message,
+          });
+          break;
+        case 409:
+          toast.error('Error booking event', {
+            description: message,
+          });
+          break;
+        case 500:
+          toast.error('Error booking event', {
             description: message,
           });
           break;
