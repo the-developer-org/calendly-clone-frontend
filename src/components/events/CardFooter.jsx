@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CopyIcon, Settings, Edit, Trash } from 'lucide-react';
 import { toast } from 'sonner';
@@ -13,19 +12,19 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { deleteEventAction } from '@/store/actions/eventActions';
 import environmentConfig from '../../util/config';
-const { API_URL } = environmentConfig;
+const { FE_URL } = environmentConfig;
 const CardFooter = ({ data }) => {
   const dispatch = useDispatch();
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-
+      toast.info("Link copied to clipboard")
     } catch (err) {
       console.error('Failed to copy: ', err);
     }
   };
   const eventName = data.name.toLowerCase().replace(/\s+/g, '_');
-  const linkToCopy = `${API_URL}/book/${eventName}/${data.id}`;
+  const linkToCopy = `${FE_URL}/book/${eventName}/${data.id}`;
   const deleteHandler = () => {
     dispatch(deleteEventAction(data.id));
   };

@@ -1,6 +1,5 @@
 import NotFound from '../components/book/NotFound';
 import Book from '../components/book/Book';
-import Message from '../components/book/Message';
 import { Routes, Route } from 'react-router-dom';
 
 const BookingRoutes = () => {

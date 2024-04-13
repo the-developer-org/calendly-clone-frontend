@@ -60,12 +60,14 @@ const EventForm = ({ setActiveTab }) => {
     },
   });
   useEffect(() => {
-    const storedFormData = JSON.parse(localStorage.getItem('formData'));
-    if (storedFormData) {
-      form.reset(storedFormData);
-    } else {
-      const updateData = JSON.parse(localStorage.getItem('updateData'));
-      form.reset(updateData);
+    const storedData = JSON.parse(localStorage.getItem('formData')) || JSON.parse(localStorage.getItem('updateData'));
+    if (storedData) {
+      const formData = {
+        ...storedData,
+        startDate: new Date(storedData.startDate),
+        endDate: new Date(storedData.endDate),
+      };
+      form.reset(formData);
     }
   }, [form]);
   const onSubmit = async (data) => {
@@ -83,6 +85,7 @@ const EventForm = ({ setActiveTab }) => {
 
   return (
     <div className="w-2xl mx-auto shadow-lg p-8 rounded-lg bg-white font-poppins">
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className=" sm:grid gird-rows-2 lg:grid grid-cols-2 gap-6 p-2 ">

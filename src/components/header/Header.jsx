@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Settings2 } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Link } from "react-router-dom";
 
 const Header = ({ show }) => {
   const { userDetails } = useSelector(state => state.auth)
@@ -19,8 +20,10 @@ const Header = ({ show }) => {
         </div>
       </div>
       <div className="m-5 flex flex-row items-center gap-x-4">
+        <Link to={'/settings'} className="cursor-pointer hover:bg-purple-200 rounded-md h-10 w-10 flex items-center justify-center">
+          <Settings2 />
+        </Link>
 
-        <Settings2 className="cursor-pointer" />
       </div>
     </div>
 
