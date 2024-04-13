@@ -10,6 +10,7 @@ import MobileHeader from '../header/MobileHeader';
 const NewEvent = () => {
   const [activeTab, setActiveTab] = useState(parseInt(localStorage.getItem('activeTab')) || 1);
   const { hasEvent, eventDetails } = useSelector((state) => state.event);
+
   return (
     <section className="flex flex-col gap-[1rem]">
       <MobileHeader className="block sm:hidden" />
