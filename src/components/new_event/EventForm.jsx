@@ -61,7 +61,7 @@ const EventForm = ({ setActiveTab }) => {
     },
   });
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('formData'))
+    const storedData = JSON.parse(localStorage.getItem('formData'));
     if (storedData) {
       const formData = {
         ...storedData,
@@ -86,7 +86,6 @@ const EventForm = ({ setActiveTab }) => {
 
   return (
     <div className="w-2xl mx-auto shadow-lg p-8 rounded-lg bg-white font-poppins">
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className=" sm:grid gird-rows-2 lg:grid grid-cols-2 gap-6 p-2 ">
@@ -199,13 +198,11 @@ const EventForm = ({ setActiveTab }) => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="purple-400">
-                          Purple
-                        </SelectItem>
-                        <SelectItem value="blue-400">Blue</SelectItem>
-                        <SelectItem value="black">Black</SelectItem>
-                        <SelectItem value="orange-400">Orange</SelectItem>
-                        <SelectItem value="green-400">Green</SelectItem>
+                        <SelectItem value="bg-purple-400">Purple</SelectItem>
+                        <SelectItem value="bg-blue-400">Blue</SelectItem>
+                        <SelectItem value="bg-black">Black</SelectItem>
+                        <SelectItem value="bg-orange-400">Orange</SelectItem>
+                        <SelectItem value="bg-green-400">Green</SelectItem>
                       </SelectContent>
                     </Select>
 

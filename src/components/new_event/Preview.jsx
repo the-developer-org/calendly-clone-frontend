@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Calendar } from "@/components/ui/calendar";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux";
-import SlotButton from "./SlotButton";
-import { Clock, Check, Loader2 } from 'lucide-react'
+import { Calendar } from '@/components/ui/calendar';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import SlotButton from './SlotButton';
+import { Clock, Check, Loader2 } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -12,10 +12,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import BrandTitle from "../common/BrandTitle";
-import { saveEventAction } from "../../store/actions/eventActions";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import BrandTitle from '../common/BrandTitle';
+import { saveEventAction } from '../../store/actions/eventActions';
 const Preview = () => {
   let details;
   const storedData = JSON.parse(localStorage.getItem('formData'));
@@ -27,27 +27,34 @@ const Preview = () => {
       endDate: new Date(storedData.endDate),
     };
   }
-  const [selected, setSelected] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { userDetails } = useSelector(state => state.auth)
-  const availableSlots = selected ? details.slots[selected.toDateString()]?.map(slot => slot) : [];
+  const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userDetails } = useSelector((state) => state.auth);
+  const availableSlots = selected
+    ? details.slots[selected.toDateString()]?.map((slot) => slot)
+    : [];
   const submitHandler = () => {
-
-    const { slots, ...eventDetails } = details
-    dispatch(saveEventAction(eventDetails, userDetails.token, navigate, setLoading))
-
-  }
+    const { slots, ...eventDetails } = details;
+    dispatch(
+      saveEventAction(eventDetails, userDetails.token, navigate, setLoading)
+    );
+  };
+  console.log(details.color);
   return (
     <>
-
       <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins">
-        <div className="hidden md:block border-r p-4 w-1/2 text-white"  >
-          <Card className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white bg-${details.color}`}  >
+        <div className="hidden md:block border-r p-4 w-1/2 text-white">
+          <Card
+            className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white ${details.color}`}
+          >
             <CardHeader>
               <CardTitle>{details.name}</CardTitle>
-              <CardDescription className="text-white">This is just a preview of your event link which can be shared with others</CardDescription>
+              <CardDescription className="text-white">
+                This is just a preview of your event link which can be shared
+                with others
+              </CardDescription>
             </CardHeader>
             <div className="flex flex-col gap-4 items-start justify-evenly mt-2">
               <CardContent>
@@ -57,7 +64,8 @@ const Preview = () => {
                       Event Duration
                     </p>
                     <p className="text-sm text-white flex flex-row gap-2 items-center">
-                      {details.duration} minutes<Clock size={"1rem"} />
+                      {details.duration} minutes
+                      <Clock size={'1rem'} />
                     </p>
                   </div>
                 </div>
@@ -90,8 +98,17 @@ const Preview = () => {
 
             <CardFooter>
               <Button className="w-full" onClick={submitHandler}>
-                {!loading && <><Check className="mr-2 h-4 w-4" /> <p>Create Event</p></>}
-                {loading && <><Loader2 className="mr-2 h-4 w-4 animate-spin" /><p>Creating Event</p></>}
+                {!loading && (
+                  <>
+                    <Check className="mr-2 h-4 w-4" /> <p>Create Event</p>
+                  </>
+                )}
+                {loading && (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <p>Creating Event</p>
+                  </>
+                )}
               </Button>
             </CardFooter>
           </Card>
@@ -107,9 +124,13 @@ const Preview = () => {
                 onSelect={setSelected}
                 disabled={(date) =>
                   date > details.endDate || date < details.startDate
-                } />
+                }
+              />
             </div>
-            <Button className="sm:hidden" > <Check className="mr-2 h-4 w-4" /> Create Event</Button>
+            <Button className="sm:hidden">
+              {' '}
+              <Check className="mr-2 h-4 w-4" /> Create Event
+            </Button>
           </div>
           <div className="flex flex-row  gap-4 items-center pt-[4rem]">
             {selected && (
@@ -120,13 +141,9 @@ const Preview = () => {
               </div>
             )}
           </div>
-
         </div>
-      </div >
+      </div>
     </>
-
-
-
-  )
-}
-export default Preview
+  );
+};
+export default Preview;

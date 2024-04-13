@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux'
-import { Button } from "@/components/ui/button";
+import { useDispatch } from 'react-redux';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,20 +8,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Loader2 } from 'lucide-react'
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from '@/components/ui/dialog';
+import { Loader2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { bookSlotAction } from '../../store/actions/eventActions';
 
-const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event, color }) => {
-
+const BookButton = ({
+  slot,
+  selectedDate,
+  id,
+  setBooked,
+  setTime,
+  event,
+  color,
+}) => {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     userName: '',
-    userEmail: ''
+    userEmail: '',
   });
   const onClickHandler = () => {
     setShowDialog(!showDialog);
@@ -36,30 +43,36 @@ const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event, color }
       eventEndTime: slot.endTime,
       eventDate: selectedDate,
       eventName: event.name,
-      eventLink: event.meetingLink
-    }
-    dispatch(bookSlotAction(data, setLoading, setBooked))
-    setTime(slot.startTime)
-  }
+      eventLink: event.meetingLink,
+    };
+    dispatch(bookSlotAction(data, setLoading, setBooked));
+    setTime(slot.startTime);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
-  }
+  };
 
   return (
-    <div className='flex flex-row  gap-2 justify-between w-[10rem]'>
-
-      <Button disabled={slot.availabilty} variant="ghost" className={`hover:bg-purple-200 bg-${color} text-white  ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
+    <div className="flex flex-row  gap-2 justify-between w-[10rem]">
+      <Button
+        disabled={slot.availabilty}
+        variant="ghost"
+        className={`hover:bg-purple-200 ${color} text-white  ${showDialog ? 'w-1/2' : 'w-full'}`}
+        onClick={onClickHandler}
+      >
         {slot.startTime}
       </Button>
       {showDialog && (
         <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)}>
           <DialogTrigger asChild>
-            <Button variant="outline" className="max-w-1/2">Book</Button>
+            <Button variant="outline" className="max-w-1/2">
+              Book
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -95,8 +108,10 @@ const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event, color }
                 </div>
               </div>
               <DialogFooter>
-
-                <Button type="submit">{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Book Slot</Button>
+                <Button type="submit">
+                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{' '}
+                  Book Slot
+                </Button>
               </DialogFooter>
             </form>
           </DialogContent>

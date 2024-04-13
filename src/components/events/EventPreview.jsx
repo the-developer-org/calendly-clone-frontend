@@ -1,41 +1,52 @@
 /* eslint-disable react/prop-types */
-import { Calendar } from "@/components/ui/calendar";
-import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import SlotButton from "../new_event/SlotButton";
-import { Clock, Check, } from 'lucide-react'
+import { Calendar } from '@/components/ui/calendar';
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import SlotButton from '../new_event/SlotButton';
+import { Clock, Check } from 'lucide-react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import BrandTitle from "../common/BrandTitle";
-import { getEventAction } from "@/store/actions/eventActions";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import BrandTitle from '../common/BrandTitle';
+import { getEventAction } from '@/store/actions/eventActions';
 const EventPreview = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const location = useLocation();
-  const id = location.pathname.split("/")[2]
+  const id = location.pathname.split('/')[2];
   useEffect(() => {
-    dispatch(getEventAction(id))
-  }, [])
-  const { bookingEvent } = useSelector(state => state.event)
-  const details = { ...bookingEvent, startDate: new Date(bookingEvent.startDate), endDate: new Date(bookingEvent.endDate) }
-  console.log(details)
-  const [selected, setSelected] = useState(null)
-  const slots = selected ? details.availableSlots[selected.toDateString()]?.map(slot => slot) : [];
+    dispatch(getEventAction(id));
+  }, []);
+  const { bookingEvent } = useSelector((state) => state.event);
+  const details = {
+    ...bookingEvent,
+    startDate: new Date(bookingEvent.startDate),
+    endDate: new Date(bookingEvent.endDate),
+  };
+  console.log(details);
+  const [selected, setSelected] = useState(null);
+  const slots = selected
+    ? details.availableSlots[selected.toDateString()]?.map((slot) => slot)
+    : [];
 
   return (
     <>
       <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins">
         <div className="hidden md:block border-r p-4  w-full lg:w-1/2">
-          <Card className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white bg-${details.color}`}  >
+          <Card
+            className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white ${details.color}`}
+          >
             <CardHeader>
               <CardTitle>{details.name}</CardTitle>
-              <CardDescription className='text-white' >This is just a preview of your event link which can be shared with others</CardDescription>
+              <CardDescription className="text-white">
+                This is just a preview of your event link which can be shared
+                with others
+              </CardDescription>
             </CardHeader>
             <div className="flex flex-col gap-4 items-start justify-evenly mt-2">
               <CardContent>
@@ -45,7 +56,8 @@ const EventPreview = () => {
                       Event Duration
                     </p>
                     <p className="text-sm text-white flex flex-row gap-2 items-center">
-                      {details.duration} minutes<Clock size={"1rem"} />
+                      {details.duration} minutes
+                      <Clock size={'1rem'} />
                     </p>
                   </div>
                 </div>
@@ -100,9 +112,13 @@ const EventPreview = () => {
                 onSelect={setSelected}
                 disabled={(date) =>
                   date > details.endDate || date < details.startDate
-                } />
+                }
+              />
             </div>
-            <Button className="sm:hidden" > <Check className="mr-2 h-4 w-4" /> Edit event</Button>
+            <Button className="sm:hidden">
+              {' '}
+              <Check className="mr-2 h-4 w-4" /> Edit event
+            </Button>
           </div>
           <div className="flex flex-row  gap-4 items-center pt-[4rem]">
             {selected && slots.length > 0 && (
@@ -113,13 +129,9 @@ const EventPreview = () => {
               </div>
             )}
           </div>
-
         </div>
-      </div >
+      </div>
     </>
-
-
-
-  )
-}
-export default EventPreview
+  );
+};
+export default EventPreview;
