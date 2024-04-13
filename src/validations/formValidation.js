@@ -48,4 +48,5 @@ export const event = z.object({
   endTime: z.string(),
   bufferTime: z.string(),
   description: z.string(),
+  color: z.string(),
 });

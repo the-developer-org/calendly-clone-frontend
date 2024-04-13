@@ -16,7 +16,17 @@ import {
 import { Button } from "@/components/ui/button"
 import BrandTitle from "../common/BrandTitle";
 import { saveEventAction } from "../../store/actions/eventActions";
-const Preview = ({ details }) => {
+const Preview = () => {
+  let details;
+  const storedData = JSON.parse(localStorage.getItem('formData'));
+  if (storedData) {
+    details = {
+      ...storedData,
+      bufferTime: Number(storedData.bufferTime) || Number(details.bufferTime),
+      startDate: new Date(storedData.startDate),
+      endDate: new Date(storedData.endDate),
+    };
+  }
   const [selected, setSelected] = useState(null)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -24,19 +34,20 @@ const Preview = ({ details }) => {
   const { userDetails } = useSelector(state => state.auth)
   const availableSlots = selected ? details.slots[selected.toDateString()]?.map(slot => slot) : [];
   const submitHandler = () => {
+
     const { slots, ...eventDetails } = details
     dispatch(saveEventAction(eventDetails, userDetails.token, navigate, setLoading))
-    localStorage.removeItem('formData');
+
   }
   return (
     <>
 
       <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins">
-        <div className="hidden md:block border-r p-4 w-1/2">
-          <Card className="min-h-[30rem] flex flex-col  items-start justify-evenly"  >
+        <div className="hidden md:block border-r p-4 w-1/2 text-white"  >
+          <Card className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white bg-${details.color}`}  >
             <CardHeader>
               <CardTitle>{details.name}</CardTitle>
-              <CardDescription>This is just a preview of your event link which can be shared with others</CardDescription>
+              <CardDescription className="text-white">This is just a preview of your event link which can be shared with others</CardDescription>
             </CardHeader>
             <div className="flex flex-col gap-4 items-start justify-evenly mt-2">
               <CardContent>
@@ -45,7 +56,7 @@ const Preview = ({ details }) => {
                     <p className="text-sm font-medium leading-none ">
                       Event Duration
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.duration} minutes<Clock size={"1rem"} />
                     </p>
                   </div>
@@ -57,7 +68,7 @@ const Preview = ({ details }) => {
                     <p className="text-sm font-medium leading-none ">
                       Meeting mode
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.mode}
                     </p>
                   </div>
@@ -69,7 +80,7 @@ const Preview = ({ details }) => {
                     <p className="text-sm font-medium leading-none ">
                       Meeting link
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.meetingLink}
                     </p>
                   </div>
@@ -87,7 +98,7 @@ const Preview = ({ details }) => {
         </div>
         <div className="flex flex-col  items-center w-full  justify-center lg:w-1/2 md:flex-row ">
           <div className="flex flex-col items-center justify-center">
-            <BrandTitle />
+            <BrandTitle color={details.color} />
             <div>
               <Calendar
                 mode="single"
@@ -104,7 +115,7 @@ const Preview = ({ details }) => {
             {selected && (
               <div className="grid grid-cols-2  md:flex md:flex-col gap-4 md:max-h-[20rem] lg:max-h-[25rem] overflow-y-scroll ">
                 {availableSlots.map((slot, index) => (
-                  <SlotButton key={index} slot={slot} />
+                  <SlotButton key={index} slot={slot} color={details.color} />
                 ))}
               </div>
             )}

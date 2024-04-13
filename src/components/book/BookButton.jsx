@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { bookSlotAction } from '../../store/actions/eventActions';
 
-const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event }) => {
+const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event, color }) => {
 
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
@@ -53,7 +53,7 @@ const BookButton = ({ slot, selectedDate, id, setBooked, setTime, event }) => {
   return (
     <div className='flex flex-row  gap-2 justify-between w-[10rem]'>
 
-      <Button disabled={slot.availabilty} variant="outline" className={`hover:bg-purple-200 bg-purple-400 text-white ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
+      <Button disabled={slot.availabilty} variant="ghost" className={`hover:bg-purple-200 bg-${color} text-white  ${showDialog ? 'w-1/2' : 'w-full'}`} onClick={onClickHandler}>
         {slot.startTime}
       </Button>
       {showDialog && (

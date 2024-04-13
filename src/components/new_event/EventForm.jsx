@@ -57,13 +57,15 @@ const EventForm = ({ setActiveTab }) => {
       endTime: '',
       bufferTime: '',
       description: '',
+      color: '',
     },
   });
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('formData')) || JSON.parse(localStorage.getItem('updateData'));
+    const storedData = JSON.parse(localStorage.getItem('formData'))
     if (storedData) {
       const formData = {
         ...storedData,
+        bufferTime: storedData.bufferTime.toString(),
         startDate: new Date(storedData.startDate),
         endDate: new Date(storedData.endDate),
       };
@@ -73,9 +75,8 @@ const EventForm = ({ setActiveTab }) => {
   const onSubmit = async (data) => {
     const schedule = generateSchedule(data);
     const updatedData = { ...data, ...schedule };
-
     dispatch(createEventAction(updatedData));
-    localStorage.setItem('formData', JSON.stringify(data));
+    localStorage.setItem('formData', JSON.stringify(updatedData));
     navigate('/new-event/preview');
     setActiveTab(2);
   };
@@ -178,6 +179,36 @@ const EventForm = ({ setActiveTab }) => {
                         placeholder="Enter meeting description"
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="color"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Theme Color</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select form color" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="purple-400">
+                          Purple
+                        </SelectItem>
+                        <SelectItem value="blue-400">Blue</SelectItem>
+                        <SelectItem value="black">Black</SelectItem>
+                        <SelectItem value="orange-400">Orange</SelectItem>
+                        <SelectItem value="green-400">Green</SelectItem>
+                      </SelectContent>
+                    </Select>
+
                     <FormMessage />
                   </FormItem>
                 )}

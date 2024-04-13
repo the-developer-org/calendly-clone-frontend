@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Calendar } from "@/components/ui/calendar";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import SlotButton from "../new_event/SlotButton";
 import { Clock, Check, } from 'lucide-react'
 import {
@@ -14,11 +14,16 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import BrandTitle from "../common/BrandTitle";
+import { getEventAction } from "@/store/actions/eventActions";
 const EventPreview = () => {
+  const dispatch = useDispatch()
   const location = useLocation();
-  const { allEvents } = useSelector(state => state.event)
-  const eventData = allEvents[location.pathname.split("/")[2]]
-  const details = { ...eventData, startDate: new Date(eventData.startDate), endDate: new Date(eventData.endDate) }
+  const id = location.pathname.split("/")[2]
+  useEffect(() => {
+    dispatch(getEventAction(id))
+  }, [])
+  const { bookingEvent } = useSelector(state => state.event)
+  const details = { ...bookingEvent, startDate: new Date(bookingEvent.startDate), endDate: new Date(bookingEvent.endDate) }
   console.log(details)
   const [selected, setSelected] = useState(null)
   const slots = selected ? details.availableSlots[selected.toDateString()]?.map(slot => slot) : [];
@@ -27,10 +32,10 @@ const EventPreview = () => {
     <>
       <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins">
         <div className="hidden md:block border-r p-4  w-full lg:w-1/2">
-          <Card className="min-h-[30rem] flex flex-col  items-start justify-evenly"  >
+          <Card className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white bg-${details.color}`}  >
             <CardHeader>
               <CardTitle>{details.name}</CardTitle>
-              <CardDescription>This is just a preview of your event link which can be shared with others</CardDescription>
+              <CardDescription className='text-white' >This is just a preview of your event link which can be shared with others</CardDescription>
             </CardHeader>
             <div className="flex flex-col gap-4 items-start justify-evenly mt-2">
               <CardContent>
@@ -39,7 +44,7 @@ const EventPreview = () => {
                     <p className="text-sm font-medium leading-none ">
                       Event Duration
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.duration} minutes<Clock size={"1rem"} />
                     </p>
                   </div>
@@ -51,7 +56,7 @@ const EventPreview = () => {
                     <p className="text-sm font-medium leading-none ">
                       Description
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.description}
                     </p>
                   </div>
@@ -63,7 +68,7 @@ const EventPreview = () => {
                     <p className="text-sm font-medium leading-none ">
                       Meeting mode
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.mode}
                     </p>
                   </div>
@@ -75,7 +80,7 @@ const EventPreview = () => {
                     <p className="text-sm font-medium leading-none ">
                       Meeting link
                     </p>
-                    <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                    <p className="text-sm text-white flex flex-row gap-2 items-center">
                       {details.meetingLink}
                     </p>
                   </div>
@@ -103,7 +108,7 @@ const EventPreview = () => {
             {selected && slots.length > 0 && (
               <div className="grid grid-cols-2  md:flex md:flex-col gap-4 md:max-h-[20rem] lg:max-h-[25rem] overflow-y-scroll ">
                 {slots.map((slot, index) => (
-                  <SlotButton key={index} slot={slot} />
+                  <SlotButton key={index} slot={slot} color={details.color} />
                 ))}
               </div>
             )}

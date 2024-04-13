@@ -33,7 +33,7 @@ const Book = () => {
       {booked ? <Message name={details.name} date={selected} time={time} link={details.meetingLink} /> :
         <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins ">
           <div className="hidden md:block border-r p-4  w-full lg:w-1/2">
-            <Card className="min-h-[30rem] flex flex-col  items-start justify-evenly"  >
+            <Card className={`min-h-[30rem] flex flex-col  items-start justify-evenly text-white bg-${details.color}`}  >
               <CardHeader>
                 <CardTitle>{details.name}</CardTitle>
               </CardHeader>
@@ -44,7 +44,7 @@ const Book = () => {
                       <p className="text-sm font-medium leading-none ">
                         Event Duration
                       </p>
-                      <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                      <p className="text-sm text-white flex flex-row gap-2 items-center">
                         {details.duration} minutes<Clock size={"1rem"} />
                       </p>
                     </div>
@@ -56,7 +56,7 @@ const Book = () => {
                       <p className="text-sm font-medium leading-none ">
                         Description
                       </p>
-                      <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                      <p className="text-sm text-white flex flex-row gap-2 items-center">
                         {details.description}
                       </p>
                     </div>
@@ -68,7 +68,7 @@ const Book = () => {
                       <p className="text-sm font-medium leading-none ">
                         Meeting mode
                       </p>
-                      <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                      <p className="text-sm text-white flex flex-row gap-2 items-center">
                         {details.mode}
                       </p>
                     </div>
@@ -80,7 +80,7 @@ const Book = () => {
                       <p className="text-sm font-medium leading-none ">
                         Meeting link
                       </p>
-                      <p className="text-sm text-muted-foreground flex flex-row gap-2 items-center">
+                      <p className="text-sm text-white flex flex-row gap-2 items-center">
                         {details.meetingLink}
                       </p>
                     </div>
@@ -109,7 +109,7 @@ const Book = () => {
                 <div className="grid grid-cols-2  md:flex md:flex-col gap-4 md:max-h-[20rem] lg:max-h-[25rem] overflow-y-scroll ">
                   {availableSlots.map((slot, index) => {
                     if (slot.availability) {
-                      return <BookButton key={index} slot={slot} event={details} selectedDate={selected} id={details.id} setBooked={setBooked} setTime={setTime} />
+                      return <BookButton key={index} slot={slot} event={details} selectedDate={selected} id={details.id} setBooked={setBooked} setTime={setTime} color={details.color} />
                     }
                     else {
                       return <Button key={index} variant="destructive" className={`hover:bg-red-200 w-full cursor-not-allowed flex flex-row gap-2`} >

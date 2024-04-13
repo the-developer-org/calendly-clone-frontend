@@ -37,6 +37,7 @@ export const saveEventAction = (eventData, authToken, navigate, setLoading) => {
       toast.success('Created event successfully');
       dispatch(removeEventDetails());
       navigate('/event-types');
+      localStorage.removeItem('formData');
     } catch (error) {
       const data = error.response
         ? error.response
