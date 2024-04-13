@@ -43,10 +43,10 @@ const EventForm = ({ setActiveTab }) => {
     defaultValues: {
       name: '',
       duration: '',
-      mode: defaultMeetLink.mode ? defaultMeetLink.mode : '',
+      mode: defaultMeetLink.mode ? defaultMeetLink.mode : 'Select Mode',
       meetingLink: defaultMeetLink.meetingLink
         ? defaultMeetLink.meetingLink
-        : 'Not Added',
+        : '',
       startDate: '',
       endDate: '',
       startTime: '',
@@ -67,6 +67,7 @@ const EventForm = ({ setActiveTab }) => {
   const onSubmit = async (data) => {
     const schedule = generateSchedule(data);
     const updatedData = { ...data, ...schedule };
+
     dispatch(createEventAction(updatedData));
     localStorage.setItem('formData', JSON.stringify(data));
     navigate('/new-event/preview');
@@ -143,11 +144,12 @@ const EventForm = ({ setActiveTab }) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="googleMeet">
+                          <SelectItem value="Google Meet">
                             Google Meet
                           </SelectItem>
-                          <SelectItem value="teams">Teams</SelectItem>
-                          <SelectItem value="zoom">Zoom</SelectItem>
+                          <SelectItem value="Teams">Teams</SelectItem>
+                          <SelectItem value="Zoom">Zoom</SelectItem>
+                          <SelectItem value="Other">Other</SelectItem>
                         </SelectContent>
                       </Select>
 
