@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Table,
   TableBody,
@@ -7,26 +8,16 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { EllipsisVertical, Edit, Trash } from 'lucide-react';
+
 import { useSelector, useDispatch } from 'react-redux';
 
-const ScheduledTable = ({ start, end }) => {
+const ScheduledTable = ({ start, end, data }) => {
   const convart12HoursTime = (time) => {
     let [hours, minutes, seconds] = time.split(':');
     let period = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12;
     return `${hours}:${minutes} ${period}`;
   };
-
-  const { bookedEvents } = useSelector((state) => state.event);
   return (
     <Table>
       <TableCaption>Your upcoming appointments</TableCaption>
@@ -40,7 +31,7 @@ const ScheduledTable = ({ start, end }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {bookedEvents.slice(start, end).map((event, index) => (
+        {data.map((event, index) => (
           <TableRow key={index}>
             <TableCell className="font-medium">
               {new Date(event.eventDate).toLocaleDateString()}

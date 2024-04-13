@@ -16,9 +16,6 @@ const Header = ({ show }) => {
         </Avatar>
         <div className="flex flex-col gap-y-1">
           <p className="text-1xl">{name}</p>
-          <p className="text-xs font-normal text-blue-500 hover:underline cursor-pointer overflow-hidden whitespace-nowrap md:w-[min] w-40 md:overflow-visible">
-            https://localhost:3000/mudassir-quraishi/event-two
-          </p>
         </div>
       </div>
       <div className="m-5 flex flex-row items-center gap-x-4">
