@@ -28,6 +28,7 @@ const Book = () => {
   const details = { ...bookingEvent, startDate: new Date(bookingEvent.startDate), endDate: new Date(bookingEvent.endDate) }
   const [selected, setSelected] = useState(null)
   const availableSlots = selected ? details.availableSlots[selected]?.map(slot => slot) : [];
+  console.log(availableSlots)
   return (
     <>
       {booked ? <Message name={details.name} date={selected} time={time} link={details.meetingLink} /> :
