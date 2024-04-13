@@ -16,18 +16,7 @@ import {
 import { Button } from "@/components/ui/button"
 import BrandTitle from "../common/BrandTitle";
 import { saveEventAction } from "../../store/actions/eventActions";
-import { isEmptyObject } from "../../util/functions";
 const Preview = ({ details }) => {
-  if (!details || isEmptyObject(details)) {
-    const storedData = JSON.parse(localStorage.getItem('formData')) || JSON.parse(localStorage.getItem('updateData'));
-    if (storedData) {
-      details = {
-        ...storedData,
-        startDate: new Date(storedData.startDate),
-        endDate: new Date(storedData.endDate),
-      };
-    }
-  }
   const [selected, setSelected] = useState(null)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()

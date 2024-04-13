@@ -20,7 +20,7 @@ const EventPreview = () => {
   const eventData = allEvents[location.pathname.split("/")[2]]
   const details = { ...eventData, startDate: new Date(eventData.startDate), endDate: new Date(eventData.endDate) }
   const [selected, setSelected] = useState(null)
-  const slots = selected ? details.availableSlots[selected]?.map(slot => slot) : [];
+  const slots = selected ? details.availableSlots[selected.toDateString()]?.map(slot => slot) : [];
 
   return (
     <>
