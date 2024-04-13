@@ -9,21 +9,6 @@ const store = configureStore({
     event: eventSlice,
     ui: uiSlice,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [
-          'eventSlice/setEventDetails',
-          'eventDetails/allEvents',
-          'eventDetails/bookingEvent',
-          'eventDetails/setBookedEvents',
-        ],
-        ignoredPaths: [
-          'event.eventDetails.startDate',
-          'event.eventDetails.endDate',
-        ],
-      },
-    }),
 });
 
 export default store;
