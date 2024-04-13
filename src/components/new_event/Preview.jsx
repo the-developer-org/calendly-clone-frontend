@@ -22,8 +22,7 @@ const Preview = ({ details }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { userDetails } = useSelector(state => state.auth)
-  console.log(details)
-  const availableSlots = selected ? details.slots[selected]?.map(slot => slot) : [];
+  const availableSlots = selected ? details.slots[selected.toDateString()]?.map(slot => slot) : [];
   const submitHandler = () => {
     const { slots, ...eventDetails } = details
     dispatch(saveEventAction(eventDetails, userDetails.token, navigate, setLoading))
