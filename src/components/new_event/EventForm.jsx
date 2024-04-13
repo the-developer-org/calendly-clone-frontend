@@ -43,10 +43,14 @@ const EventForm = ({ setActiveTab }) => {
     defaultValues: {
       name: '',
       duration: '',
-      mode: defaultMeetLink.mode ? defaultMeetLink.mode : 'Select Mode',
-      meetingLink: defaultMeetLink.meetingLink
-        ? defaultMeetLink.meetingLink
-        : '',
+      mode:
+        defaultMeetLink && defaultMeetLink.mode
+          ? defaultMeetLink.mode
+          : 'Select Mode',
+      meetingLink:
+        defaultMeetLink && defaultMeetLink.meetingLink
+          ? defaultMeetLink.meetingLink
+          : '',
       startDate: '',
       endDate: '',
       startTime: '',
