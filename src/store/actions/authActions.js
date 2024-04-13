@@ -160,7 +160,7 @@ export const deleteDefaultMeetlinkAction = () => {
       if (!token) {
         return toast.error('token missing');
       }
-      await deleteDefaultMeetlink();
+      await deleteDefaultMeetlink(token);
       toast.success('Meeting link deleted');
       dispatch(setUserDefaultMeetLink({}));
     } catch (error) {
