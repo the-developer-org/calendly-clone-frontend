@@ -14,7 +14,6 @@ export const mainLinks = [
     path: '/scheduled_events',
     icon: CalendarDays,
   },
-  { label: 'Admin Center', path: '/admin', icon: Shield },
   { label: 'Settings', path: '/settings', icon: Settings2 },
 ];
 

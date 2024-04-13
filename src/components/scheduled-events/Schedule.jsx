@@ -3,37 +3,46 @@ import MobileHeader from '../header/MobileHeader';
 import { useSelector, useDispatch } from 'react-redux';
 import ScheduledTable from './Table';
 import TablePagination from './Pagination';
-import { scheduledEvents } from '../../assets/data';
 import { fecthedBookSlots } from '@/store/actions/eventActions';
 import PageLoader from '../common/PageLoader';
+import { Input } from "@/components/ui/input"
+import { Button } from '../ui/button';
+
 
 const Schedule = ({ title }) => {
   const dispatch = useDispatch();
-  const { userDetails } = useSelector((state) => state.auth);
-  const [data, setData] = useState([]);
-  const rowsPerPage = 7;
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setendIndex] = useState(rowsPerPage);
+  const { bookedSlots } = useSelector(state => state.event)
   const [current, setCurrent] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
-  const { name } = userDetails;
+  const lastPage = bookedSlots.totalPages;
+  const [rows, setRows] = useState(5)
   const [loader, setLoader] = useState(true);
   useEffect(() => {
-    dispatch(fecthedBookSlots(setLoader));
-    setData(scheduledEvents);
-    setLastPage(Math.ceil(data.length / rowsPerPage));
+    dispatch(fecthedBookSlots({ current, rows }, setLoader));
   }, []);
   const nextHandler = () => {
-    setStartIndex(() => startIndex + rowsPerPage);
-    setendIndex(() => endIndex + rowsPerPage);
+    dispatch(fecthedBookSlots({ current: current + 1, rows }, setLoader));
     setCurrent(() => current + 1);
+
   };
   const prevHandler = () => {
-    setStartIndex(() => startIndex - rowsPerPage);
-    setendIndex(() => endIndex - rowsPerPage);
+    dispatch(fecthedBookSlots({ current: current - 1, rows }, setLoader));
     setCurrent(() => current - 1);
-  };
 
+  };
+  const handleRowsChange = (event) => {
+    const newRows = parseInt(event.target.value);
+    if (newRows >= 0) {
+      setRows(newRows);
+    }
+    else {
+      setRows('')
+    }
+  };
+  const clickHandler = () => {
+
+    dispatch(fecthedBookSlots({ current: 1, rows }, setLoader));
+    setCurrent(1)
+  }
   return (
     <>
       {loader ? (
@@ -41,16 +50,17 @@ const Schedule = ({ title }) => {
       ) : (
         <section className="flex flex-col gap-[1rem] mt-1">
           <MobileHeader className="block sm:hidden" />
-          <h1 className=" text-1xl md:text-2xl lg:text-3xl font-poppins">
-            {title}
+          <h1 className="flex flex-row gap-5 text-1xl md:text-2xl lg:text-3xl font-poppins">
+            <p>{title}</p>
+            <Input type="number" placeholder="Rows per page" className="max-w-20" value={rows} onChange={handleRowsChange} />
+            <Button type='submit' onClick={clickHandler} className="bg-purple-500 hover:bg-purple-300" >Search</Button>
+
           </h1>
-          <ScheduledTable start={startIndex} end={endIndex} data={data} />
+          <ScheduledTable data={bookedSlots.slots} />
           <TablePagination
             setNext={nextHandler}
             setPrev={prevHandler}
             lastPage={lastPage}
-            startIndex={startIndex}
-            endIndex={endIndex}
             current={current}
           />
         </section>

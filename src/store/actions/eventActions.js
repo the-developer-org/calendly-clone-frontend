@@ -132,15 +132,11 @@ export const deleteEventAction = (id, setLoading) => {
   };
 };
 
-export const fecthedBookSlots = (setLoader) => {
+export const fecthedBookSlots = ({ current, rows }, setLoader) => {
   const token = localStorage.getItem('token');
   return async (dispatch) => {
     try {
-      if (!token) {
-        setLoader(false);
-        return toast.error('error fetching book events');
-      }
-      const { data } = await getBookedSlots(token);
+      const { data } = await getBookedSlots(current, rows, token);
       if (data) {
         dispatch(setBookedEvents(data.data));
       }

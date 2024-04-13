@@ -17,7 +17,7 @@ const Sidebar = ({ show, setShow }) => {
   };
   return (
     <div
-      className={`flex  ${state ? 'flex-col ' : 'flex-row  '} ${show ? 'md:w-[5rem] px-3 py-4' : 'lg:w-[12rem] md:w-[11rem]'}  md:h-full  md:flex-col `}
+      className={`flex  ${state ? 'flex-col ' : 'flex-row  '} ${show ? 'md:w-[5rem] px-3 py-4' : 'lg:w-[12rem] md:w-[11rem]'}  md:h-full  md:flex-col`}
       onMouseEnter={() => setShow(false)}
       onMouseLeave={() => setShow(true)}
     >

@@ -7,7 +7,7 @@ const eventSlice = createSlice({
     eventDetails: {},
     allEvents: [],
     bookingEvent: {},
-    bookedEvents: [],
+    bookedSlots: [],
   },
   reducers: {
     setEventDetails(state, action) {
@@ -25,7 +25,7 @@ const eventSlice = createSlice({
       state.bookingEvent = action.payload;
     },
     setBookedEvents(state, action) {
-      state.bookedEvents = action.payload;
+      state.bookedSlots = action.payload;
     },
     resetEventValues(state, action) {
       (state.allEvents = []),

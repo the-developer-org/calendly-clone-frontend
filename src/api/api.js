@@ -41,10 +41,30 @@ export const deleteEvent = (eventId, token) =>
     }
   );
 
-export const getBookedSlots = (token) => {
-  return api.get('/slot/get-booked-slots', {
+export const getBookedSlots = (current, rows, token) => {
+  return api.get(`/slot/get-booked-slots`, {
+    params: {
+      current: current,
+      rows: rows,
+    },
     headers: { Authorization: token },
   });
+};
+
+export const setDefaultMeetlink = (token, data) => {
+  return api.post('/event/set-default-link', data, {
+    headers: { Authorization: token },
+  });
+};
+
+export const deleteDefaultMeetlink = (token) => {
+  return api.post(
+    '/event/delete-default-link',
+    {},
+    {
+      headers: { Authorization: token },
+    }
+  );
 };
 
 export default api;

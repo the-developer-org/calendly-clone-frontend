@@ -12,21 +12,20 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { deleteEventAction } from '@/store/actions/eventActions';
-
+import environmentConfig from '../../util/config';
+const { API_URL } = environmentConfig;
 const CardFooter = ({ data }) => {
   const dispatch = useDispatch();
-  const [copySuccess, setCopySuccess] = useState('');
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopySuccess('Copied!');
+
     } catch (err) {
       console.error('Failed to copy: ', err);
-      setCopySuccess('Failed to copy!');
     }
   };
   const eventName = data.name.toLowerCase().replace(/\s+/g, '_');
-  const linkToCopy = `http://localhost:5173/book/${eventName}/${data.id}`;
+  const linkToCopy = `${API_URL}/book/${eventName}/${data.id}`;
   const deleteHandler = () => {
     dispatch(deleteEventAction(data.id));
   };
