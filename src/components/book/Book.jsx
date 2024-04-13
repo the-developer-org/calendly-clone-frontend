@@ -25,8 +25,11 @@ const Book = () => {
   const [booked, setBooked] = useState(false)
   const [time, setTime] = useState("")
   const { bookingEvent } = useSelector(state => state.event)
+  console.log(bookingEvent)
   const details = { ...bookingEvent, startDate: new Date(bookingEvent.startDate), endDate: new Date(bookingEvent.endDate) }
+  console.log(details)
   const [selected, setSelected] = useState(null)
+  console.log(selected)
   const availableSlots = selected ? details.availableSlots[selected]?.map(slot => slot) : [];
   console.log(availableSlots)
   return (
