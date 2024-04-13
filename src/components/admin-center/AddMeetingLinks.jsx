@@ -50,7 +50,7 @@ const AddMeetingLinks = () => {
       <Dialog isOpen={showModal} onDismiss={() => setShowModal(false)}>
         <div className="px-2 font-poppins">
           <div className="  rounded-md flex items-center gap-5">
-            <h1 className=" bg-purple-400 text-xl px-10 py-1 text-white">
+            <h1 className=" bg-purple-400 text-xl px-10 py-1 text-white rounded-md">
               Default Meeting Link
             </h1>
             <DialogTrigger asChild>
@@ -65,7 +65,7 @@ const AddMeetingLinks = () => {
           </div>
         </div>
         {showModal && (
-          <DialogContent className="sm:max-w-full md:max-w-[50rem] xl:max-w-[40rem] 2xl:max-w-[45rem]">
+          <DialogContent className="sm:max-w-full md:max-w-[50rem] xl:max-w-[40rem] 2xl:max-w-[45rem] ">
             <DialogHeader>
               <DialogTitle>Default Meet Link</DialogTitle>
             </DialogHeader>

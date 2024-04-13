@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { EyeOff, Menu } from 'lucide-react';
 import BrandTitle from '../common/BrandTitle';
-import { Button } from '@/components/ui/button';
 import { mainLinks } from '../../assets/data';
 import { Link } from 'react-router-dom';
 import SidebarButton from './SidebarButton';
