@@ -33,7 +33,7 @@ const EventPage = ({ title }) => {
             {title}
           </h1>
           {allEvents.length > 0 ? (
-            <div className="grid grid-cols-1 p-4 gap-4 md:grid-cols-2 md:gap-x-0 xl:grid-cols-3">
+            <div className="grid grid-cols-1 p-2 gap-4 md:grid-cols-2 md:gap-x-0 xl:grid-cols-4">
               {Object.entries(allEvents).map(([eventId, eventData]) => (
                 <EventCard key={eventId} id={eventId} data={eventData} />
               ))}

@@ -7,6 +7,7 @@ import NewEvent from '../components/new_event/NewEvent';
 import EventPage from '../components/events/Event';
 import Schedule from '../components/scheduled-events/Schedule';
 import EventPreview from '../components/events/EventPreview';
+import AdminCenter from '../components/admin-center/AdminCenter';
 
 const UserRoutes = () => {
   const [show, setShow] = useState(true);
@@ -30,6 +31,10 @@ const UserRoutes = () => {
           <Route
             path="/scheduled_events"
             element={<Schedule title="Scheduled Events" />}
+          />
+          <Route
+            path="/settings"
+            element={<AdminCenter title="Admin Center" />}
           />
           <Route path="*" element={<Navigate to="/events" />} />
         </Routes>

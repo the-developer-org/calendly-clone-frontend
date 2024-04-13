@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
@@ -34,6 +34,8 @@ import { createEventAction } from '@/store/actions/eventActions';
 import generateSchedule from '@/util/functions';
 
 const EventForm = ({ setActiveTab }) => {
+  const { defaultMeetLink } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const form = useForm({
@@ -41,8 +43,10 @@ const EventForm = ({ setActiveTab }) => {
     defaultValues: {
       name: '',
       duration: '',
-      mode: '',
-      meetingLink: '',
+      mode: defaultMeetLink.mode ? defaultMeetLink.mode : '',
+      meetingLink: defaultMeetLink.meetingLink
+        ? defaultMeetLink.meetingLink
+        : 'Not Added',
       startDate: '',
       endDate: '',
       startTime: '',

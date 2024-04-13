@@ -6,6 +6,7 @@ const authSlice = createSlice({
     isloggedIn: false,
     userDetails: {},
     authToken: localStorage.getItem('token'),
+    defaultMeetLink: {},
   },
   reducers: {
     setUserDetails(state, action) {
@@ -19,9 +20,16 @@ const authSlice = createSlice({
       state.isloggedIn = false;
       state.userDetails = {};
     },
+    setUserDefaultMeetLink(state, action) {
+      state.defaultMeetLink = action.payload;
+    },
   },
 });
 
 export default authSlice.reducer;
-export const { setUserDetails, logOutUser, setUserLoggedIn } =
-  authSlice.actions;
+export const {
+  setUserDetails,
+  logOutUser,
+  setUserLoggedIn,
+  setUserDefaultMeetLink,
+} = authSlice.actions;

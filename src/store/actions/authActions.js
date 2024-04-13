@@ -1,4 +1,10 @@
-import { signupUser, loginUser, verifyUser } from '../../api/api';
+import {
+  signupUser,
+  loginUser,
+  verifyUser,
+  setDefaultMeetlink,
+  deleteDefaultMeetlink,
+} from '../../api/api';
 import { toast } from 'sonner';
 import { errorToastHandler } from '../../util/errrorHandler';
 
@@ -6,6 +12,7 @@ import {
   setUserDetails,
   setUserLoggedIn,
   logOutUser,
+  setUserDefaultMeetLink,
 } from '../reducers/authSlice';
 import { resetEventValues } from '../reducers/eventSlice';
 /**
@@ -56,11 +63,13 @@ export const logInAction = (userData, setLoading) => {
       const response = await loginUser(userData);
       toast.success('Login successful');
       const { data } = response.data;
+
       const userDetails = {
         name: data.name,
         email: data.email,
         token: data.token,
       };
+      dispatch(setUserDefaultMeetLink(data.defaultMode));
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
@@ -86,6 +95,7 @@ export const logOutAction = () => {
   return (dispatch) => {
     dispatch(logOutUser());
     dispatch(resetEventValues());
+    dispatch(setUserDefaultMeetLink({}));
     localStorage.removeItem('token');
   };
 };
@@ -103,6 +113,7 @@ export const verifyUserAction = (token, setLoading) => {
       };
 
       dispatch(setUserDetails(userDetails));
+      dispatch(setUserDefaultMeetLink(data.defaultMode));
       dispatch(setUserLoggedIn());
     } catch (error) {
       const data = error.response
@@ -114,6 +125,46 @@ export const verifyUserAction = (token, setLoading) => {
       errorToastHandler(data, 'verifyuser');
     } finally {
       setLoading(false);
+    }
+  };
+};
+
+export const setDefaultMeetlinkAction = (
+  formData,
+  setBtnLoader,
+  setShowModal
+) => {
+  const token = localStorage.getItem('token');
+  return async (dispatch, getState) => {
+    try {
+      if (!token) {
+        return toast.error('token missing');
+      }
+      setBtnLoader(true);
+      await setDefaultMeetlink(token, formData);
+      dispatch(setUserDefaultMeetLink(formData));
+      toast.success('default meet link added');
+      setShowModal(false);
+    } catch (error) {
+      toast.error('Error while adding the link');
+    } finally {
+      setBtnLoader(false);
+    }
+  };
+};
+
+export const deleteDefaultMeetlinkAction = () => {
+  return async (dispatch) => {
+    const token = localStorage.getItem('token');
+    try {
+      if (!token) {
+        return toast.error('token missing');
+      }
+      await deleteDefaultMeetlink();
+      toast.success('Meeting link deleted');
+      dispatch(setUserDefaultMeetLink({}));
+    } catch (error) {
+      toast.error('Error while deleting the link');
     }
   };
 };
