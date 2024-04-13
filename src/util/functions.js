@@ -48,7 +48,7 @@ const generateSchedule = (obj) => {
       );
       currentStartTime = nextStartTime;
     }
-    schedule.slots[date] = dailySlots;
+    schedule.slots[date.toDateString()] = dailySlots;
   }
 
   return schedule;
