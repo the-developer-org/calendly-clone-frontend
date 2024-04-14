@@ -32,7 +32,7 @@ const Signup = ({ toggle }) => {
     }
   })
   const onSubmit = (data) => {
-    dispatch(signUpAction(data, setLoading))
+    dispatch(signUpAction(data, setLoading, toggle))
   }
   return (<>
     <CardWrapper label="Get your journey started with Appointmently" title="Signup" backButtonPath="/auth/login" backButtonLabel="Already have an account? Login here" toggle={toggle}>

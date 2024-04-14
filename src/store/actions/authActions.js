@@ -21,7 +21,7 @@ import { resetEventValues } from '../reducers/eventSlice';
  * @param {Function} setBtnLoader - A function to set the loading state of a button during signup.
  * @returns {Function} A Redux function that dispatches actions related to user signup process.
  */
-export const signUpAction = (userData, setLoading) => {
+export const signUpAction = (userData, setLoading, setShow) => {
   return async (dispatch) => {
     try {
       setLoading(true);
@@ -31,11 +31,9 @@ export const signUpAction = (userData, setLoading) => {
       const userDetails = {
         name: data.name,
         email: data.email,
-        token: data.token,
       };
       dispatch(setUserDetails(userDetails));
-      dispatch(setUserLoggedIn());
-      localStorage.setItem('token', data.token);
+      setShow();
     } catch (error) {
       const data = error.response
         ? error.response
@@ -73,6 +71,8 @@ export const logInAction = (userData, setLoading) => {
       dispatch(setUserDetails(userDetails));
       dispatch(setUserLoggedIn());
       localStorage.setItem('token', data.token);
+      localStorage.removeItem('formData');
+      localStorage.removeItem('activeTab');
     } catch (error) {
       const data = error.response
         ? error.response

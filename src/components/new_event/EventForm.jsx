@@ -32,12 +32,14 @@ import { Button } from '@/components/ui/button';
 import { event } from '../../validations/formValidation';
 import { createEventAction } from '@/store/actions/eventActions';
 import generateSchedule from '@/util/functions';
+import { setPreviewLock } from '@/store/reducers/eventSlice';
 
 const EventForm = ({ setActiveTab }) => {
   const { defaultMeetLink } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let storedData;
   const form = useForm({
     resolver: zodResolver(event),
     defaultValues: {
@@ -71,7 +73,10 @@ const EventForm = ({ setActiveTab }) => {
       };
       form.reset(formData);
     }
-  }, [form]);
+    setActiveTab(1);
+    dispatch(setPreviewLock())
+  }, [form, dispatch, setActiveTab]);
+
   const onSubmit = async (data) => {
     const schedule = generateSchedule(data);
     const updatedData = { ...data, ...schedule };
@@ -81,7 +86,7 @@ const EventForm = ({ setActiveTab }) => {
     setActiveTab(2);
   };
   const handleReset = () => {
-    form.reset();
+    form.reset({});
   };
 
   return (
@@ -115,8 +120,9 @@ const EventForm = ({ setActiveTab }) => {
                     <FormItem>
                       <FormLabel>Duration</FormLabel>
                       <Select
+
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={form.getValues('duration')}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -159,7 +165,6 @@ const EventForm = ({ setActiveTab }) => {
                           <SelectItem value="Other">Other</SelectItem>
                         </SelectContent>
                       </Select>
-
                       <FormMessage />
                     </FormItem>
                   )}

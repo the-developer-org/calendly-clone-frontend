@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 const generateSchedule = (obj) => {
   const {
     startDate,
@@ -9,6 +11,8 @@ const generateSchedule = (obj) => {
   } = obj;
   const schedule = {
     ...obj,
+    startDate: moment.tz(obj.startDate, 'Asia/Kolkata'),
+    endDate: moment.tz(obj.endDate, 'Asia/Kolkata'),
     bufferTime: Number(bufferTime),
     slots: {},
   };

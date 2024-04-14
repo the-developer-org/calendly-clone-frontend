@@ -27,6 +27,9 @@ const eventSlice = createSlice({
     setBookedEvents(state, action) {
       state.bookedSlots = action.payload;
     },
+    setPreviewLock(state, action) {
+      state.hasEvent = false;
+    },
     resetEventValues(state, action) {
       (state.allEvents = []),
         (state.bookedEvents = []),
@@ -45,4 +48,5 @@ export const {
   bookingEvent,
   setBookedEvents,
   resetEventValues,
+  setPreviewLock,
 } = eventSlice.actions;

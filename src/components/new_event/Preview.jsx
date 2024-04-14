@@ -37,11 +37,15 @@ const Preview = () => {
     : [];
   const submitHandler = () => {
     const { slots, ...eventDetails } = details;
+    const updatedData = {
+      ...eventDetails,
+      startDate: eventDetails.startDate.toISOString(),
+      endDate: eventDetails.endDate.toISOString(),
+    }
     dispatch(
-      saveEventAction(eventDetails, userDetails.token, navigate, setLoading)
+      saveEventAction(updatedData, userDetails.token, navigate, setLoading)
     );
   };
-  console.log(details.color);
   return (
     <>
       <div className=" flex felx-row justify-betweeen items-center max-h-1/2 font-poppins">
