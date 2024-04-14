@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '@/components/ui/button';
+import moment from 'moment-timezone';
 import {
   Dialog,
   DialogContent,
@@ -41,7 +42,7 @@ const BookButton = ({
       eventId: id,
       eventStartTime: slot.startTime,
       eventEndTime: slot.endTime,
-      eventDate: selectedDate,
+      eventDate: moment.tz(selectedDate, 'Asia/Kolkata'),
       eventName: event.name,
       eventLink: event.meetingLink,
     };
