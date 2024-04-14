@@ -39,7 +39,6 @@ const EventForm = ({ setActiveTab }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let storedData;
   const form = useForm({
     resolver: zodResolver(event),
     defaultValues: {

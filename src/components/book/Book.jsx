@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Calendar } from '@/components/ui/calendar';
+import moment from 'moment-timezone';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,8 +23,8 @@ const Book = () => {
   const { bookingEvent } = useSelector((state) => state.event);
   const details = {
     ...bookingEvent,
-    startDate: new Date(bookingEvent.startDate),
-    endDate: new Date(bookingEvent.endDate),
+    startDate: moment.tz(bookingEvent.startDate, 'Asia/Kolkata'),
+    endDate: moment.tz(bookingEvent.endDate, 'Asia/Kolkata')
   };
   const [selected, setSelected] = useState(null);
   const availableSlots = selected
