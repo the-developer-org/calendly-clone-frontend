@@ -31,7 +31,7 @@ const EventPreview = () => {
   };
   const [selected, setSelected] = useState(null);
   const slots = selected
-    ? details.availableSlots[selected.toDateString()]?.map((slot) => slot)
+    ? details.availableSlots[selected]?.map((slot) => slot)
     : [];
 
   return (
@@ -109,7 +109,10 @@ const EventPreview = () => {
                 mode="single"
                 className="rounded-md border"
                 selected={selected}
-                onSelect={setSelected}
+                onSelect={(value) => {
+                  const date = (moment.tz(value, 'Asia/Kolkata'))
+                  setSelected(date.format('l'))
+                }}
                 disabled={(date) =>
                   date > details.endDate || date < details.startDate
                 }
